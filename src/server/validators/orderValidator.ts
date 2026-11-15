@@ -4,12 +4,18 @@ export const checkoutSchema = z.object({
   customer_name: z.string().min(2, "Ism-familiyangizni kiriting"),
   customer_phone: z
     .string()
-    .min(9, "Telefon raqami kamida 9 ta raqam bo'lishi kerak")
-    .regex(/^(\+?998)?[0-9]{9}$/, "Telefon raqami formati noto'g'ri (masalan: +998901234567)"),
+    .transform((val) => val.replace(/[\s()\-]/g, ""))
+    .refine(
+      (val) => /^(\+?998)?[0-9]{9}$/.test(val),
+      "Telefon raqami formati noto'g'ri (masalan: +998901234567)"
+    ),
   customer_email: z.string().email("Email formati noto'g'ri").optional().or(z.literal("")),
   delivery_address: z.object({
     recipient_name: z.string().min(2, "Qabul qiluvchi ismini kiriting"),
-    phone: z.string().min(9, "Telefon raqamini kiriting"),
+    phone: z
+      .string()
+      .transform((val) => val.replace(/[\s()\-]/g, ""))
+      .refine((val) => val.length >= 9, "Telefon raqamini kiriting"),
     region: z.string().min(2, "Viloyat yoki shaharni tanlang"),
     city: z.string().min(2, "Tuman yoki shaharni kiriting"),
     district: z.string().optional(),

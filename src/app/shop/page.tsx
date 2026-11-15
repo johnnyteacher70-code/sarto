@@ -4,8 +4,9 @@ import { Footer } from "@/components/layout/Footer";
 import { ProductCard } from "@/components/product/ProductCard";
 import { getProducts } from "@/server/repositories/productRepository";
 import { getActiveCategories } from "@/server/repositories/categoryRepository";
+import { SortSelect } from "@/components/ui/SortSelect";
 import Link from "next/link";
-import { ArrowUpDown, X, Filter } from "lucide-react";
+import { X, Filter } from "lucide-react";
 
 interface ShopPageProps {
   searchParams: Promise<{
@@ -66,34 +67,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             </div>
 
             {/* Sort Control Dropdown */}
-            <div className="flex items-center gap-2 self-start sm:self-auto">
-              <label htmlFor="sort-select" className="text-xs text-sarto-muted font-medium flex items-center gap-1 shrink-0">
-                <ArrowUpDown className="w-3.5 h-3.5" /> Saralash:
-              </label>
-              <form method="GET" action="/shop">
-                {currentCategorySlug && (
-                  <input type="hidden" name="category" value={currentCategorySlug} />
-                )}
-                {searchQuery && (
-                  <input type="hidden" name="q" value={searchQuery} />
-                )}
-                <select
-                  id="sort-select"
-                  name="sort"
-                  defaultValue={currentSort}
-                  // Auto submit on change
-                  className="min-h-[42px] border border-sarto-border bg-white px-3 py-1.5 text-xs sm:text-sm text-sarto-black font-medium focus-visible:outline-none focus-visible:border-sarto-black cursor-pointer rounded-none"
-                >
-                  <option value="newest">Yangi kelganlar</option>
-                  <option value="featured">Tavsiya etilganlar</option>
-                  <option value="price_asc">Narx: arzonroqdan</option>
-                  <option value="price_desc">Narx: qimmatroqdan</option>
-                </select>
-                <noscript>
-                  <button type="submit" className="ml-2 px-3 py-1 bg-sarto-black text-white text-xs">Saralash</button>
-                </noscript>
-              </form>
-            </div>
+            <SortSelect currentSort={currentSort} />
           </div>
 
           {/* Filter Categories Chips */}

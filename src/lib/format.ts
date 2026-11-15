@@ -4,16 +4,24 @@
 
 export function formatUZS(amount: number): string {
   if (isNaN(amount)) return "0 so'm";
-  return new Intl.NumberFormat("uz-UZ", {
-    style: "decimal",
-    maximumFractionDigits: 0,
-  }).format(amount).replace(/,/g, " ") + " so'm";
+  return (
+    new Intl.NumberFormat("uz-UZ", {
+      style: "decimal",
+      maximumFractionDigits: 0,
+    })
+      .format(amount)
+      .replace(/,/g, " ")
+      .replace(/[\u00a0\u1680\u2000-\u200a\u202f\u205f\u3000]/g, " ") + " so'm"
+  );
 }
 
 export function formatPhone(phone: string): string {
   const cleaned = phone.replace(/\D/g, "");
   if (cleaned.length === 12 && cleaned.startsWith("998")) {
     return `+998 (${cleaned.slice(3, 5)}) ${cleaned.slice(5, 8)}-${cleaned.slice(8, 10)}-${cleaned.slice(10, 12)}`;
+  }
+  if (cleaned.length === 9) {
+    return `+998 (${cleaned.slice(0, 2)}) ${cleaned.slice(2, 5)}-${cleaned.slice(5, 7)}-${cleaned.slice(7, 9)}`;
   }
   return phone;
 }

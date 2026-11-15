@@ -1,12 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { Search, ShoppingBag, User, Menu, X, Heart, Phone, MapPin } from "lucide-react";
 import { useCart } from "@/features/cart/CartContext";
 
+const emptySubscribe = () => () => {};
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
   const { totalItems, setIsCartOpen } = useCart();
 
   const navigation = [
@@ -99,10 +106,10 @@ export function Header() {
             <button
               onClick={() => setIsCartOpen(true)}
               className="min-w-[44px] min-h-[44px] flex items-center justify-center text-sarto-black hover:text-sarto-taupe transition-colors relative cursor-pointer rounded-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sarto-black -mr-1"
-              aria-label={`Xarid savatchasi, ${totalItems} ta tovar`}
+              aria-label={`Xarid savatchasi, ${isMounted ? totalItems : 0} ta tovar`}
             >
               <ShoppingBag className="w-5 h-5 stroke-[1.75]" />
-              {totalItems > 0 && (
+              {isMounted && totalItems > 0 && (
                 <span className="absolute top-1.5 right-1.5 bg-sarto-black text-white text-[10px] min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center font-bold leading-none ring-2 ring-white">
                   {totalItems}
                 </span>

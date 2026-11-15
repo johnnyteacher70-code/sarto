@@ -2,7 +2,7 @@ import { Category, Product } from "@/types";
 
 export const SAMPLE_CATEGORIES: Category[] = [
   {
-    id: "c1000000-0000-0000-0000-000000000001",
+    id: "c0000000-0000-4000-a000-000000000001",
     name: "Ko'ylaklar",
     slug: "koylaklar",
     description: "Klassik va zamonaviy uslubdagi premium paxta ko'ylaklar",
@@ -13,7 +13,7 @@ export const SAMPLE_CATEGORIES: Category[] = [
     updated_at: "2026-01-01T00:00:00.000Z",
   },
   {
-    id: "c1000000-0000-0000-0000-000000000002",
+    id: "c0000000-0000-4000-a000-000000000002",
     name: "Kostyum va Shimlar",
     slug: "kostyum-va-shimlar",
     description: "Italiya jun matosidan tikilgan sifatli kostyumlar va klassik shimlar",
@@ -24,7 +24,7 @@ export const SAMPLE_CATEGORIES: Category[] = [
     updated_at: "2026-01-01T00:00:00.000Z",
   },
   {
-    id: "c1000000-0000-0000-0000-000000000003",
+    id: "c0000000-0000-4000-a000-000000000003",
     name: "Ustki kiyimlar",
     slug: "ustki-kiyimlar",
     description: "Palto, trench va charm kurtkalar to'plami",
@@ -35,7 +35,7 @@ export const SAMPLE_CATEGORIES: Category[] = [
     updated_at: "2026-01-01T00:00:00.000Z",
   },
   {
-    id: "c1000000-0000-0000-0000-000000000004",
+    id: "c0000000-0000-4000-a000-000000000004",
     name: "Polo va Trikotaj",
     slug: "polo-va-trikotaj",
     description: "Yuqori sifatli pima paxta pololar va kashmir jemperlar",
@@ -49,8 +49,8 @@ export const SAMPLE_CATEGORIES: Category[] = [
 
 export const SAMPLE_PRODUCTS: Product[] = [
   {
-    id: "p1000000-0000-0000-0000-000000000001",
-    category_id: "c1000000-0000-0000-0000-000000000001",
+    id: "a0000000-0000-4000-a000-000000000001",
+    category_id: "c0000000-0000-4000-a000-000000000001",
     name: "Oxford Slim-Fit Oq Ko'ylak",
     slug: "oxford-slim-fit-oq-koylak",
     sku: "SRT-SH-001",
@@ -67,7 +67,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     images: [
       {
         id: "img-1",
-        product_id: "p1000000-0000-0000-0000-000000000001",
+        product_id: "a0000000-0000-4000-a000-000000000001",
         variant_id: null,
         storage_path: "/images/products/oxford-shirt.jpg",
         alt_text: "Oxford Slim-Fit Oq Ko'ylak",
@@ -77,8 +77,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     ],
     variants: [
       {
-        id: "v1000000-0000-0000-0000-000000000001",
-        product_id: "p1000000-0000-0000-0000-000000000001",
+        id: "b0000000-0000-4000-a000-000000000001",
+        product_id: "a0000000-0000-4000-a000-000000000001",
         sku: "SRT-SH-001-M-WHT",
         size: "M",
         color_name: "Oq",
@@ -91,8 +91,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
         updated_at: "2026-01-01T00:00:00.000Z",
       },
       {
-        id: "v1000000-0000-0000-0000-000000000002",
-        product_id: "p1000000-0000-0000-0000-000000000001",
+        id: "b0000000-0000-4000-a000-000000000002",
+        product_id: "a0000000-0000-4000-a000-000000000001",
         sku: "SRT-SH-001-L-WHT",
         size: "L",
         color_name: "Oq",
@@ -105,8 +105,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
         updated_at: "2026-01-01T00:00:00.000Z",
       },
       {
-        id: "v1000000-0000-0000-0000-000000000003",
-        product_id: "p1000000-0000-0000-0000-000000000001",
+        id: "b0000000-0000-4000-a000-000000000003",
+        product_id: "a0000000-0000-4000-a000-000000000001",
         sku: "SRT-SH-001-XL-WHT",
         size: "XL",
         color_name: "Oq",
@@ -121,8 +121,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "p1000000-0000-0000-0000-000000000002",
-    category_id: "c1000000-0000-0000-0000-000000000002",
+    id: "a0000000-0000-4000-a000-000000000002",
+    category_id: "c0000000-0000-4000-a000-000000000002",
     name: "To'q Ko'k Premium Jun Kostyum",
     slug: "toq-kok-premium-jun-kostyum",
     sku: "SRT-SU-002",
@@ -139,7 +139,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     images: [
       {
         id: "img-2",
-        product_id: "p1000000-0000-0000-0000-000000000002",
+        product_id: "a0000000-0000-4000-a000-000000000002",
         variant_id: null,
         storage_path: "/images/products/navy-suit.jpg",
         alt_text: "To'q Ko'k Premium Jun Kostyum",
@@ -149,8 +149,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     ],
     variants: [
       {
-        id: "v1000000-0000-0000-0000-000000000004",
-        product_id: "p1000000-0000-0000-0000-000000000002",
+        id: "b0000000-0000-4000-a000-000000000004",
+        product_id: "a0000000-0000-4000-a000-000000000002",
         sku: "SRT-SU-002-48-NVY",
         size: "48 (M)",
         color_name: "To'q ko'k",
@@ -163,8 +163,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
         updated_at: "2026-01-01T00:00:00.000Z",
       },
       {
-        id: "v1000000-0000-0000-0000-000000000005",
-        product_id: "p1000000-0000-0000-0000-000000000002",
+        id: "b0000000-0000-4000-a000-000000000005",
+        product_id: "a0000000-0000-4000-a000-000000000002",
         sku: "SRT-SU-002-50-NVY",
         size: "50 (L)",
         color_name: "To'q ko'k",
@@ -179,8 +179,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "p1000000-0000-0000-0000-000000000003",
-    category_id: "c1000000-0000-0000-0000-000000000003",
+    id: "a0000000-0000-4000-a000-000000000003",
+    category_id: "c0000000-0000-4000-a000-000000000003",
     name: "Kashmir Aralashmali Bej Palto",
     slug: "kashmir-aralashmali-bej-palto",
     sku: "SRT-OT-003",
@@ -197,7 +197,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     images: [
       {
         id: "img-3",
-        product_id: "p1000000-0000-0000-0000-000000000003",
+        product_id: "a0000000-0000-4000-a000-000000000003",
         variant_id: null,
         storage_path: "/images/products/cashmere-coat.jpg",
         alt_text: "Kashmir Aralashmali Bej Palto",
@@ -207,8 +207,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     ],
     variants: [
       {
-        id: "v1000000-0000-0000-0000-000000000006",
-        product_id: "p1000000-0000-0000-0000-000000000003",
+        id: "b0000000-0000-4000-a000-000000000006",
+        product_id: "a0000000-0000-4000-a000-000000000003",
         sku: "SRT-OT-003-M-BGE",
         size: "M",
         color_name: "Bej",
@@ -221,8 +221,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
         updated_at: "2026-01-01T00:00:00.000Z",
       },
       {
-        id: "v1000000-0000-0000-0000-000000000007",
-        product_id: "p1000000-0000-0000-0000-000000000003",
+        id: "b0000000-0000-4000-a000-000000000007",
+        product_id: "a0000000-0000-4000-a000-000000000003",
         sku: "SRT-OT-003-L-BGE",
         size: "L",
         color_name: "Bej",
@@ -237,8 +237,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "p1000000-0000-0000-0000-000000000004",
-    category_id: "c1000000-0000-0000-0000-000000000004",
+    id: "a0000000-0000-4000-a000-000000000004",
+    category_id: "c0000000-0000-4000-a000-000000000004",
     name: "Klassik Pima Paxta Polo",
     slug: "klassik-pima-paxta-polo",
     sku: "SRT-PL-004",
@@ -255,7 +255,7 @@ export const SAMPLE_PRODUCTS: Product[] = [
     images: [
       {
         id: "img-4",
-        product_id: "p1000000-0000-0000-0000-000000000004",
+        product_id: "a0000000-0000-4000-a000-000000000004",
         variant_id: null,
         storage_path: "/images/products/black-polo.jpg",
         alt_text: "Klassik Pima Paxta Polo",
@@ -265,8 +265,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
     ],
     variants: [
       {
-        id: "v1000000-0000-0000-0000-000000000008",
-        product_id: "p1000000-0000-0000-0000-000000000004",
+        id: "b0000000-0000-4000-a000-000000000008",
+        product_id: "a0000000-0000-4000-a000-000000000004",
         sku: "SRT-PL-004-M-BLK",
         size: "M",
         color_name: "Qora",
@@ -279,8 +279,8 @@ export const SAMPLE_PRODUCTS: Product[] = [
         updated_at: "2026-01-01T00:00:00.000Z",
       },
       {
-        id: "v1000000-0000-0000-0000-000000000009",
-        product_id: "p1000000-0000-0000-0000-000000000004",
+        id: "b0000000-0000-4000-a000-000000000009",
+        product_id: "a0000000-0000-4000-a000-000000000004",
         sku: "SRT-PL-004-L-BLK",
         size: "L",
         color_name: "Qora",

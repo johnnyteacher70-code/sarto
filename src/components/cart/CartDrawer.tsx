@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/features/cart/CartContext";
 import { formatUZS } from "@/lib/format";
-import { Button } from "@/components/ui/Button";
 import { X, Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 
@@ -69,13 +68,13 @@ export function CartDrawer() {
                   </p>
                 </div>
                 <div className="pt-2">
-                  <Button
-                    variant="primary"
-                    size="md"
+                  <Link
+                    href="/shop"
                     onClick={() => setIsCartOpen(false)}
+                    className="inline-flex min-h-[46px] items-center justify-center px-6 py-2.5 bg-sarto-black text-white text-sm font-semibold tracking-wide hover:bg-sarto-charcoal transition-colors shadow-xs"
                   >
-                    <Link href="/shop">Xaridni boshlash</Link>
-                  </Button>
+                    Xaridni boshlash
+                  </Link>
                 </div>
               </div>
             ) : (
