@@ -20,33 +20,25 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 const CART_STORAGE_KEY = "sarto_guest_cart";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  // Local storage'dan cartni yuklash
-  useEffect(() => {
+  const [items, setItems] = useState<CartItem[]>(() => {
+    if (typeof window === "undefined") return [];
     try {
       const saved = localStorage.getItem(CART_STORAGE_KEY);
-      if (saved) {
-        setItems(JSON.parse(saved));
-      }
-    } catch (e) {
-      console.error("Cart storage error:", e);
-    } finally {
-      setIsLoaded(true);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
     }
-  }, []);
+  });
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   // O'zgarishlarni local storage'ga yozish
   useEffect(() => {
-    if (!isLoaded) return;
     try {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
     } catch (e) {
       console.error("Cart save error:", e);
     }
-  }, [items, isLoaded]);
+  }, [items]);
 
   const addItem = (newItem: CartItem) => {
     setItems((prev) => {
