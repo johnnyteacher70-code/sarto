@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Product } from "@/types";
 import { formatUZS } from "@/lib/format";
 import { Heart } from "lucide-react";
@@ -18,6 +19,9 @@ export function ProductCard({ product }: ProductCardProps) {
   const comparePrice = defaultVariant?.compare_at_price_uzs;
   const isSale = comparePrice && comparePrice > price;
 
+  const imagePath =
+    product.images?.[0]?.storage_path || "/images/products/oxford-shirt.jpg";
+
   // O'lchamlar ro'yxati
   const sizes = Array.from(
     new Set(product.variants?.map((v) => v.size).filter(Boolean))
@@ -27,19 +31,19 @@ export function ProductCard({ product }: ProductCardProps) {
     <div className="group relative flex flex-col">
       {/* Image container */}
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-sarto-ivory border border-sarto-border transition-all">
-        <Link href={`/product/${product.slug}`} className="block w-full h-full">
-          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center select-none bg-gradient-to-b from-transparent to-black/[0.02]">
-            <span className="font-serif text-xs uppercase tracking-[0.3em] text-sarto-muted">
-              SARTO
-            </span>
-            <span className="font-serif text-sm uppercase tracking-wider text-sarto-black/80 mt-2 font-medium">
-              {product.name}
-            </span>
-          </div>
+        <Link href={`/product/${product.slug}`} className="block w-full h-full relative">
+          <Image
+            src={imagePath}
+            alt={product.name}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            priority={product.is_featured}
+          />
         </Link>
 
         {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1 pointer-events-none">
+        <div className="absolute top-3 left-3 flex flex-col gap-1 pointer-events-none z-10">
           {product.is_new && (
             <span className="bg-sarto-black text-white text-[9px] uppercase tracking-wider px-2 py-0.5 font-medium">
               Yangi
@@ -55,7 +59,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Wishlist button */}
         <button
           onClick={() => setIsWishlisted(!isWishlisted)}
-          className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-xs text-sarto-black hover:text-red-600 transition-colors cursor-pointer border border-sarto-border"
+          className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-xs text-sarto-black hover:text-red-600 transition-colors cursor-pointer border border-sarto-border z-10"
           aria-label="Sevimliga qo‘shish"
         >
           <Heart
@@ -67,7 +71,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Size chips on hover */}
         {sizes.length > 0 && (
-          <div className="absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-xs border-t border-sarto-border p-2 translate-y-full group-hover:translate-y-0 transition-transform duration-200 hidden sm:flex items-center justify-center gap-1.5">
+          <div className="absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-xs border-t border-sarto-border p-2 translate-y-full group-hover:translate-y-0 transition-transform duration-200 hidden sm:flex items-center justify-center gap-1.5 z-10">
             <span className="text-[10px] text-sarto-muted uppercase tracking-wider mr-1">
               O‘lcham:
             </span>

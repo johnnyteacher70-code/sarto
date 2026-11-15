@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Product, ProductVariant } from "@/types";
 import { formatUZS } from "@/lib/format";
 import { useCart } from "@/features/cart/CartContext";
@@ -24,6 +25,9 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
   const comparePrice = selectedVariant?.compare_at_price_uzs;
   const inStock = selectedVariant ? selectedVariant.stock_quantity > 0 : false;
 
+  const imagePath =
+    product.images?.[0]?.storage_path || "/images/products/oxford-shirt.jpg";
+
   const handleAddToCart = () => {
     if (!selectedVariant || !inStock) return;
 
@@ -34,6 +38,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
         id: product.id,
         name: product.name,
         slug: product.slug,
+        primary_image: imagePath,
       },
       variant: {
         id: selectedVariant.id,
@@ -54,16 +59,15 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
       {/* Product Image Gallery */}
       <div className="space-y-4">
-        <div className="aspect-[3/4] w-full bg-sarto-ivory border border-sarto-border flex flex-col items-center justify-center p-8 text-center select-none">
-          <span className="font-serif text-sm uppercase tracking-[0.35em] text-sarto-muted">
-            SARTO LUXURY
-          </span>
-          <h2 className="font-serif text-2xl uppercase tracking-wider text-sarto-black/80 mt-4 max-w-sm">
-            {product.name}
-          </h2>
-          <span className="text-xs uppercase tracking-widest text-sarto-taupe mt-2 font-medium">
-            {selectedVariant?.color_name && `Rang: ${selectedVariant.color_name}`}
-          </span>
+        <div className="relative aspect-[3/4] w-full bg-sarto-ivory border border-sarto-border overflow-hidden">
+          <Image
+            src={imagePath}
+            alt={product.name}
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover object-center"
+          />
         </div>
       </div>
 

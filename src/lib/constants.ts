@@ -6,7 +6,7 @@ export const SAMPLE_CATEGORIES: Category[] = [
     name: "Ko'ylaklar",
     slug: "koylaklar",
     description: "Klassik va zamonaviy uslubdagi premium paxta ko'ylaklar",
-    image_url: null,
+    image_url: "/images/categories/koylaklar.jpg",
     sort_order: 1,
     is_active: true,
     created_at: "2026-01-01T00:00:00.000Z",
@@ -17,7 +17,7 @@ export const SAMPLE_CATEGORIES: Category[] = [
     name: "Kostyum va Shimlar",
     slug: "kostyum-va-shimlar",
     description: "Italiya jun matosidan tikilgan sifatli kostyumlar va klassik shimlar",
-    image_url: null,
+    image_url: "/images/categories/kostyumlar.jpg",
     sort_order: 2,
     is_active: true,
     created_at: "2026-01-01T00:00:00.000Z",
@@ -28,7 +28,7 @@ export const SAMPLE_CATEGORIES: Category[] = [
     name: "Ustki kiyimlar",
     slug: "ustki-kiyimlar",
     description: "Palto, trench va charm kurtkalar to'plami",
-    image_url: null,
+    image_url: "/images/categories/ustki-kiyimlar.jpg",
     sort_order: 3,
     is_active: true,
     created_at: "2026-01-01T00:00:00.000Z",
@@ -39,7 +39,7 @@ export const SAMPLE_CATEGORIES: Category[] = [
     name: "Polo va Trikotaj",
     slug: "polo-va-trikotaj",
     description: "Yuqori sifatli pima paxta pololar va kashmir jemperlar",
-    image_url: null,
+    image_url: "/images/categories/polo.jpg",
     sort_order: 4,
     is_active: true,
     created_at: "2026-01-01T00:00:00.000Z",
@@ -64,6 +64,17 @@ export const SAMPLE_PRODUCTS: Product[] = [
     created_at: "2026-01-01T00:00:00.000Z",
     updated_at: "2026-01-01T00:00:00.000Z",
     category: SAMPLE_CATEGORIES[0],
+    images: [
+      {
+        id: "img-1",
+        product_id: "p1000000-0000-0000-0000-000000000001",
+        variant_id: null,
+        storage_path: "/images/products/oxford-shirt.jpg",
+        alt_text: "Oxford Slim-Fit Oq Ko'ylak",
+        sort_order: 1,
+        is_primary: true,
+      },
+    ],
     variants: [
       {
         id: "v1000000-0000-0000-0000-000000000001",
@@ -125,6 +136,17 @@ export const SAMPLE_PRODUCTS: Product[] = [
     created_at: "2026-01-01T00:00:00.000Z",
     updated_at: "2026-01-01T00:00:00.000Z",
     category: SAMPLE_CATEGORIES[1],
+    images: [
+      {
+        id: "img-2",
+        product_id: "p1000000-0000-0000-0000-000000000002",
+        variant_id: null,
+        storage_path: "/images/products/navy-suit.jpg",
+        alt_text: "To'q Ko'k Premium Jun Kostyum",
+        sort_order: 1,
+        is_primary: true,
+      },
+    ],
     variants: [
       {
         id: "v1000000-0000-0000-0000-000000000004",
@@ -172,6 +194,17 @@ export const SAMPLE_PRODUCTS: Product[] = [
     created_at: "2026-01-01T00:00:00.000Z",
     updated_at: "2026-01-01T00:00:00.000Z",
     category: SAMPLE_CATEGORIES[2],
+    images: [
+      {
+        id: "img-3",
+        product_id: "p1000000-0000-0000-0000-000000000003",
+        variant_id: null,
+        storage_path: "/images/products/cashmere-coat.jpg",
+        alt_text: "Kashmir Aralashmali Bej Palto",
+        sort_order: 1,
+        is_primary: true,
+      },
+    ],
     variants: [
       {
         id: "v1000000-0000-0000-0000-000000000006",
@@ -219,6 +252,17 @@ export const SAMPLE_PRODUCTS: Product[] = [
     created_at: "2026-01-01T00:00:00.000Z",
     updated_at: "2026-01-01T00:00:00.000Z",
     category: SAMPLE_CATEGORIES[3],
+    images: [
+      {
+        id: "img-4",
+        product_id: "p1000000-0000-0000-0000-000000000004",
+        variant_id: null,
+        storage_path: "/images/products/black-polo.jpg",
+        alt_text: "Klassik Pima Paxta Polo",
+        sort_order: 1,
+        is_primary: true,
+      },
+    ],
     variants: [
       {
         id: "v1000000-0000-0000-0000-000000000008",

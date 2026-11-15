@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -44,8 +45,13 @@ export default function CartPage() {
             <div className="lg:col-span-2 divide-y divide-sarto-border border-y border-sarto-border">
               {items.map((item) => (
                 <div key={item.variant_id} className="py-6 flex gap-6 items-center">
-                  <div className="w-24 h-32 bg-sarto-ivory flex-shrink-0 flex items-center justify-center text-xs text-sarto-muted uppercase tracking-wider border border-sarto-border">
-                    SARTO
+                  <div className="w-24 h-32 relative bg-sarto-ivory flex-shrink-0 border border-sarto-border overflow-hidden">
+                    <Image
+                      src={item.product.primary_image || "/images/products/oxford-shirt.jpg"}
+                      alt={item.product.name}
+                      fill
+                      className="object-cover object-center"
+                    />
                   </div>
 
                   <div className="flex-1 flex flex-col justify-between h-full space-y-2">

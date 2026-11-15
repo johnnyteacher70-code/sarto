@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -20,36 +21,54 @@ export default async function HomePage() {
       <Header />
 
       <main className="flex-1">
-        {/* HERO SECTION */}
-        <section className="relative bg-sarto-ivory py-24 sm:py-36 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-sarto-border">
-          <div className="max-w-5xl mx-auto text-center space-y-8 relative z-10">
-            <span className="text-xs uppercase tracking-[0.35em] text-sarto-black/70 font-semibold block">
-              Yangi Kolleksiya 2026
-            </span>
-            <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight text-sarto-black leading-[1.1]">
-              Mukammal bichim va <br className="hidden sm:inline" />
-              <span className="italic">bejirim did uyg‘unligi</span>
-            </h1>
-            <p className="max-w-2xl mx-auto text-sm sm:text-base text-sarto-muted leading-relaxed font-normal">
-              SARTO — zamonaviy erkaklar uchun nafis siluet, sifatli tabiiy matolar va Italiya
-              klassik tikuv an’analarini O‘zbekistonga olib kiruvchi premium brend.
-            </p>
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/shop">
-                <Button size="lg" className="w-full sm:w-auto">
-                  Kolleksiyani ko‘rish
-                </Button>
-              </Link>
-              <Link href="/category/kostyum-va-shimlar">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                  Kostyumlar to‘plami
-                </Button>
-              </Link>
+        {/* HERO SECTION WITH REAL EDITORIAL BANNER */}
+        <section className="relative bg-sarto-black text-white min-h-[600px] sm:min-h-[700px] flex items-center overflow-hidden border-b border-sarto-charcoal">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/hero/hero-banner.jpg"
+              alt="SARTO Luxury Menswear"
+              fill
+              priority
+              className="object-cover object-center brightness-[0.75]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
+            <div className="max-w-2xl space-y-6">
+              <span className="text-xs uppercase tracking-[0.35em] text-sarto-taupe font-semibold block">
+                Yangi Mavsum 2026
+              </span>
+              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight leading-[1.1]">
+                Mukammal bichim va <br />
+                <span className="italic font-light">bejirim did uyg‘unligi</span>
+              </h1>
+              <p className="text-sm sm:text-base text-sarto-ivory/80 leading-relaxed font-normal max-w-lg">
+                SARTO — nafis siluet, sara tabiiy matolar va Italiya klassik tikuv an’analarini
+                O‘zbekiston erkaklariga taqdim etuvchi premium moda brendi.
+              </p>
+              <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                <Link href="/shop">
+                  <Button size="lg" className="w-full sm:w-auto bg-white text-sarto-black hover:bg-sarto-ivory">
+                    Kolleksiyani ko‘rish
+                  </Button>
+                </Link>
+                <Link href="/category/kostyum-va-shimlar">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto text-white border-white/60 hover:bg-white/10 hover:border-white"
+                  >
+                    Kostyumlar to‘plami
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* CATEGORIES SECTION */}
+        {/* CATEGORIES SECTION WITH REAL PHOTOS */}
         <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-4 border-b border-sarto-border gap-4">
             <div>
@@ -73,19 +92,29 @@ export default async function HomePage() {
               <Link
                 key={cat.id}
                 href={`/category/${cat.slug}`}
-                className="group block relative aspect-[4/5] bg-sarto-ivory border border-sarto-border p-8 flex flex-col justify-end transition-all hover:border-sarto-black"
+                className="group block relative aspect-[4/5] overflow-hidden border border-sarto-border transition-all hover:border-sarto-black"
               >
-                <div className="absolute top-6 left-6 font-serif text-3xl font-light text-sarto-black/10 select-none">
-                  0{cat.sort_order}
-                </div>
-                <div className="relative z-10 space-y-2">
-                  <h3 className="font-serif text-xl text-sarto-black group-hover:text-sarto-taupe transition-colors">
+                {/* Category Photo */}
+                <Image
+                  src={cat.image_url || "/images/products/oxford-shirt.jpg"}
+                  alt={cat.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+                <div className="absolute inset-0 p-6 flex flex-col justify-end text-white space-y-1.5 z-10">
+                  <span className="font-serif text-xs text-sarto-taupe font-light uppercase tracking-widest">
+                    0{cat.sort_order}
+                  </span>
+                  <h3 className="font-serif text-xl tracking-wide">
                     {cat.name}
                   </h3>
-                  <p className="text-xs text-sarto-muted line-clamp-2">
+                  <p className="text-[11px] text-white/80 line-clamp-1">
                     {cat.description}
                   </p>
-                  <span className="text-[11px] uppercase tracking-wider text-sarto-black font-semibold inline-flex items-center gap-1 pt-2">
+                  <span className="text-[10px] uppercase tracking-wider text-sarto-taupe font-semibold inline-flex items-center gap-1 pt-1">
                     Ko‘rish <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>

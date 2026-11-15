@@ -5,6 +5,7 @@ import { formatUZS } from "@/lib/format";
 import { Button } from "@/components/ui/Button";
 import { X, Trash2, ShoppingBag } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export function CartDrawer() {
   const { items, isCartOpen, setIsCartOpen, updateQuantity, removeItem, subtotal } = useCart();
@@ -60,8 +61,13 @@ export function CartDrawer() {
             ) : (
               items.map((item) => (
                 <div key={item.variant_id} className="py-4 flex gap-4 first:pt-0 last:pb-0">
-                  <div className="w-20 h-24 bg-sarto-ivory flex-shrink-0 flex items-center justify-center text-xs text-sarto-muted uppercase tracking-wider border border-sarto-border">
-                    SARTO
+                  <div className="w-20 h-24 relative bg-sarto-ivory flex-shrink-0 border border-sarto-border overflow-hidden">
+                    <Image
+                      src={item.product.primary_image || "/images/products/oxford-shirt.jpg"}
+                      alt={item.product.name}
+                      fill
+                      className="object-cover object-center"
+                    />
                   </div>
                   <div className="flex-1 flex flex-col justify-between">
                     <div>
