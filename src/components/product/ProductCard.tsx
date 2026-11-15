@@ -28,57 +28,61 @@ export function ProductCard({ product }: ProductCardProps) {
   );
 
   return (
-    <div className="group relative flex flex-col">
+    <article className="group relative flex flex-col h-full bg-white transition-all">
       {/* Image container */}
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-sarto-ivory border border-sarto-border transition-all">
-        <Link href={`/product/${product.slug}`} className="block w-full h-full relative">
+        <Link
+          href={`/product/${product.slug}`}
+          className="block w-full h-full relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sarto-black"
+          aria-label={`${product.name}, ${formatUZS(price)}`}
+        >
           <Image
             src={imagePath}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
             priority={product.is_featured}
           />
         </Link>
 
-        {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1 pointer-events-none z-10">
+        {/* Status Badges */}
+        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 pointer-events-none z-10">
           {product.is_new && (
-            <span className="bg-sarto-black text-white text-[9px] uppercase tracking-wider px-2 py-0.5 font-medium">
+            <span className="bg-sarto-black text-white text-[10px] sm:text-xs font-semibold px-2 py-0.5 tracking-wider uppercase">
               Yangi
             </span>
           )}
           {isSale && (
-            <span className="bg-red-700 text-white text-[9px] uppercase tracking-wider px-2 py-0.5 font-medium">
+            <span className="bg-red-700 text-white text-[10px] sm:text-xs font-semibold px-2 py-0.5 tracking-wider uppercase">
               Chegirma
             </span>
           )}
         </div>
 
-        {/* Wishlist button */}
+        {/* Wishlist button - Accessible 44x44px touch target */}
         <button
+          type="button"
           onClick={() => setIsWishlisted(!isWishlisted)}
-          className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-xs text-sarto-black hover:text-red-600 transition-colors cursor-pointer border border-sarto-border z-10"
-          aria-label="Sevimliga qo‘shish"
+          className="absolute top-1.5 right-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center bg-white/95 backdrop-blur-xs text-sarto-black hover:text-red-600 transition-colors cursor-pointer border border-sarto-border shadow-xs z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sarto-black"
+          aria-label={isWishlisted ? `${product.name}ni sevimlilardan o‘chirish` : `${product.name}ni sevimliga qo‘shish`}
+          aria-pressed={isWishlisted}
         >
           <Heart
-            className={`w-3.5 h-3.5 ${
+            className={`w-4 h-4 transition-colors ${
               isWishlisted ? "fill-red-600 text-red-600" : "text-sarto-black"
             }`}
           />
         </button>
 
-        {/* Size chips on hover */}
+        {/* Sizes Bar - Clean overlay on desktop hover, visible on mobile tap */}
         {sizes.length > 0 && (
-          <div className="absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-xs border-t border-sarto-border p-2 translate-y-full group-hover:translate-y-0 transition-transform duration-200 hidden sm:flex items-center justify-center gap-1.5 z-10">
-            <span className="text-[10px] text-sarto-muted uppercase tracking-wider mr-1">
-              O‘lcham:
-            </span>
+          <div className="absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-xs border-t border-sarto-border py-2 px-3 translate-y-full group-hover:translate-y-0 transition-transform duration-200 hidden sm:flex items-center justify-center gap-1.5 z-10">
+            <span className="text-[11px] text-sarto-muted mr-1 font-medium">O‘lcham:</span>
             {sizes.map((size) => (
               <span
                 key={size}
-                className="text-[10px] font-medium px-1.5 py-0.5 border border-sarto-border text-sarto-black"
+                className="text-xs font-semibold px-2 py-0.5 border border-sarto-border text-sarto-black bg-white"
               >
                 {size}
               </span>
@@ -87,28 +91,43 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
 
-      {/* Info */}
-      <div className="mt-3.5 flex flex-col flex-1">
-        <div className="flex items-start justify-between gap-2">
-          <Link
-            href={`/product/${product.slug}`}
-            className="text-xs font-semibold uppercase tracking-wide text-sarto-black hover:text-sarto-taupe transition-colors line-clamp-1"
-          >
-            {product.name}
-          </Link>
+      {/* Product Details Area */}
+      <div className="pt-3.5 pb-1 flex flex-col flex-1 justify-between">
+        <div>
+          {product.category && (
+            <p className="text-xs text-sarto-muted font-normal mb-1">
+              {product.category.name}
+            </p>
+          )}
+
+          <h3 className="text-sm sm:text-base font-medium text-sarto-black line-clamp-1 group-hover:text-sarto-taupe transition-colors">
+            <Link href={`/product/${product.slug}`}>
+              {product.name}
+            </Link>
+          </h3>
         </div>
 
-        <div className="mt-1 flex items-center gap-2">
-          <span className="text-xs font-bold text-sarto-black">
-            {formatUZS(price)}
-          </span>
-          {isSale && (
-            <span className="text-xs text-sarto-muted line-through">
-              {formatUZS(comparePrice!)}
+        {/* Price & Size summary */}
+        <div className="mt-2.5 flex items-baseline justify-between gap-2">
+          <div className="flex items-baseline gap-2">
+            <span className="text-sm sm:text-base font-bold text-sarto-black">
+              {formatUZS(price)}
+            </span>
+            {isSale && (
+              <span className="text-xs sm:text-sm text-sarto-muted line-through font-normal">
+                {formatUZS(comparePrice!)}
+              </span>
+            )}
+          </div>
+
+          {/* Mobile size indicator */}
+          {sizes.length > 0 && (
+            <span className="text-[11px] text-sarto-muted sm:hidden font-medium">
+              {sizes.slice(0, 3).join(", ")}{sizes.length > 3 ? "..." : ""}
             </span>
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 }

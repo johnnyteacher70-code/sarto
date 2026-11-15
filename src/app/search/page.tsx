@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ProductCard } from "@/components/product/ProductCard";
 import { getProducts } from "@/server/repositories/productRepository";
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 
 interface SearchPageProps {
   searchParams: Promise<{
@@ -21,42 +21,63 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       <AnnouncementBar />
       <Header />
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        <div className="border-b border-sarto-border pb-8 mb-8 max-w-2xl mx-auto text-center">
-          <h1 className="font-serif text-3xl sm:text-4xl text-sarto-black mb-4">
-            Qidiruv
-          </h1>
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-14">
+        {/* Breadcrumb */}
+        <nav aria-label="Non ushoqlari (Breadcrumbs)" className="text-xs text-sarto-muted mb-4 flex items-center gap-1.5">
+          <Link href="/" className="hover:text-sarto-black">Bosh sahifa</Link>
+          <span aria-hidden="true">/</span>
+          <span className="text-sarto-black font-semibold">Qidiruv</span>
+        </nav>
 
-          <form action="/search" method="GET" className="relative">
-            <input
-              type="text"
-              name="q"
-              defaultValue={q || ""}
-              placeholder="Mahsulot nomi yoki turini qidiring..."
-              className="w-full h-12 border border-sarto-border bg-white pl-11 pr-4 text-sm text-sarto-black focus:outline-none focus:border-sarto-black placeholder:text-sarto-muted"
-            />
-            <Search className="w-4 h-4 text-sarto-muted absolute left-4 top-4" />
+        {/* Search Input Box */}
+        <div className="max-w-2xl mx-auto text-center pb-8 mb-8 border-b border-sarto-border space-y-4">
+          <h1 className="font-serif text-3xl sm:text-4xl text-sarto-black">
+            Mahsulotlarni qidirish
+          </h1>
+          <p className="text-sm text-sarto-muted">
+            Kiyim turi, rangi yoki nomini kiriting (masalan: ko‘ylak, kostyum, palto)
+          </p>
+
+          <form action="/search" method="GET" className="relative flex items-center gap-2 pt-2">
+            <div className="relative flex-1">
+              <input
+                type="search"
+                name="q"
+                defaultValue={q || ""}
+                placeholder="Qidiruv so‘zini kiriting..."
+                className="w-full min-h-[50px] border border-sarto-border bg-white pl-12 pr-4 text-sm sm:text-base text-sarto-black focus-visible:outline-none focus-visible:border-sarto-black focus-visible:ring-1 focus-visible:ring-sarto-black placeholder:text-sarto-muted rounded-none"
+                aria-label="Mahsulot nomi yoki tavsifi bo‘yicha qidiruv"
+              />
+              <Search className="w-5 h-5 text-sarto-muted absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+            </div>
+            <button
+              type="submit"
+              className="min-h-[50px] px-6 bg-sarto-black text-white text-sm font-medium tracking-wide hover:bg-sarto-charcoal transition-colors cursor-pointer shrink-0"
+            >
+              Qidirish
+            </button>
           </form>
 
           {q && (
-            <p className="text-xs text-sarto-muted mt-3">
-              &quot;{q}&quot; so‘rovi bo‘yicha {total} ta mahsulot topildi
+            <p className="text-sm text-sarto-black pt-1">
+              «<strong className="font-bold">{q}</strong>» so‘rovi bo‘yicha <strong className="font-bold">{total} ta</strong> mahsulot topildi
             </p>
           )}
         </div>
 
+        {/* Results Grid or Empty State */}
         {products.length === 0 ? (
-          <div className="py-16 text-center space-y-3">
-            <p className="font-serif text-xl text-sarto-black">Hech narsa topilmadi</p>
-            <p className="text-xs text-sarto-muted max-w-sm mx-auto">
-              Boshqa so‘z bilan qidirib ko‘ring yoki barcha mahsulotlar katalogiga qarang.
+          <div className="py-20 text-center max-w-md mx-auto space-y-4">
+            <h2 className="font-serif text-2xl text-sarto-black">Hech narsa topilmadi</h2>
+            <p className="text-sm text-sarto-muted leading-relaxed">
+              Kiritilgan so‘z bo‘yicha mahsulot topilmadi. Boshqa so‘z bilan qidirib ko‘ring yoki to‘liq katalogimizni ko‘ring.
             </p>
-            <div className="pt-4">
+            <div className="pt-2">
               <Link
                 href="/shop"
-                className="text-xs uppercase tracking-wider underline underline-offset-4 hover:text-sarto-taupe"
+                className="inline-flex min-h-[48px] items-center justify-center px-6 bg-sarto-black text-white text-sm font-medium hover:bg-sarto-charcoal transition-colors"
               >
-                Barcha mahsulotlarni ko‘rish
+                Barcha mahsulotlarni ko‘rish <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
           </div>

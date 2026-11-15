@@ -21,19 +21,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-medium tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sarto-black focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer uppercase text-xs";
+      "inline-flex items-center justify-center font-medium tracking-wide transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sarto-black focus-visible:ring-offset-2 active:scale-[0.99] disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none rounded-none";
 
     const variants = {
-      primary: "bg-sarto-black text-white hover:bg-sarto-charcoal",
-      secondary: "bg-sarto-ivory text-sarto-black hover:bg-[#dfdbd3]",
-      outline: "border border-sarto-border text-sarto-black hover:border-sarto-black bg-transparent",
+      primary: "bg-sarto-black text-white hover:bg-sarto-charcoal active:bg-black shadow-xs",
+      secondary: "bg-sarto-ivory text-sarto-black hover:bg-[#ded9d0] active:bg-[#d4cdbf]",
+      outline: "border border-sarto-black text-sarto-black hover:bg-sarto-black hover:text-white bg-transparent",
       ghost: "hover:bg-sarto-ivory text-sarto-black",
     };
 
     const sizes = {
-      sm: "h-9 px-4 py-2",
-      md: "h-11 px-6 py-2.5",
-      lg: "h-13 px-8 py-3 text-sm",
+      sm: "min-h-[40px] px-4 py-2 text-xs sm:text-sm",
+      md: "min-h-[46px] px-6 py-2.5 text-sm",
+      lg: "min-h-[52px] px-8 py-3.5 text-sm sm:text-base font-semibold",
     };
 
     return (
@@ -49,6 +49,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               className="animate-spin h-4 w-4 text-current"
               fill="none"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <circle
                 className="opacity-25"

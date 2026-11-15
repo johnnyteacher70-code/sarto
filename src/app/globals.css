@@ -6,7 +6,7 @@
   --color-sarto-ivory: #EAE6DF;
   --color-sarto-taupe: #B8A995;
   --color-sarto-white: #FFFFFF;
-  --color-sarto-muted: #77736D;
+  --color-sarto-muted: #6B665F;
   --color-sarto-border: #E5E1DA;
 
   --font-serif: var(--font-playfair), Georgia, serif;
@@ -23,9 +23,34 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Custom scrollbar and smooth transitions */
+/* Accessibility: Focus indicators */
+*:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Prevent horizontal overflow on ultra-narrow viewports (320px) */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 html {
   scroll-behavior: smooth;
 }
