@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sarto-black: #111111;
+  --color-sarto-charcoal: #292929;
+  --color-sarto-ivory: #EAE6DF;
+  --color-sarto-taupe: #B8A995;
+  --color-sarto-white: #FFFFFF;
+  --color-sarto-muted: #77736D;
+  --color-sarto-border: #E5E1DA;
+
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+:root {
+  --background: #FFFFFF;
+  --foreground: #111111;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar and smooth transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: #B8A995;
+  color: #111111;
+}
