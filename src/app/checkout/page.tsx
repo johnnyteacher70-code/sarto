@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { useCart } from "@/features/cart/CartContext";
@@ -122,31 +121,30 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <AnnouncementBar />
+    <div className="min-h-screen flex flex-col bg-[#0A0A0A] text-white">
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-14">
         {/* Breadcrumb */}
-        <div className="border-b border-sarto-border pb-6 mb-8">
-          <nav aria-label="Non ushoqlari (Breadcrumbs)" className="text-xs text-sarto-muted mb-2 flex items-center gap-1.5">
-            <Link href="/" className="hover:text-sarto-black">Bosh sahifa</Link>
+        <div className="border-b border-white/10 pb-6 mb-8">
+          <nav aria-label="Non ushoqlari (Breadcrumbs)" className="text-xs text-white/50 mb-2 flex items-center gap-1.5">
+            <Link href="/" className="hover:text-white">Bosh sahifa</Link>
             <span aria-hidden="true">/</span>
-            <Link href="/cart" className="hover:text-sarto-black">Savatcha</Link>
+            <Link href="/cart" className="hover:text-white">Savatcha</Link>
             <span aria-hidden="true">/</span>
-            <span className="text-sarto-black font-semibold">Buyurtma rasmiylashtirish</span>
+            <span className="text-white font-medium">Buyurtma rasmiylashtirish</span>
           </nav>
-          <h1 className="font-serif text-2xl sm:text-4xl text-sarto-black">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
             Buyurtma rasmiylashtirish
           </h1>
         </div>
 
         {/* Mobile Accordion Summary for Quick Glance */}
-        <div className="lg:hidden mb-8 border border-sarto-border bg-sarto-ivory/40 p-4">
+        <div className="lg:hidden mb-8 border border-white/10 rounded-2xl bg-[#141414] p-4">
           <button
             type="button"
             onClick={() => setIsMobileSummaryOpen(!isMobileSummaryOpen)}
-            className="w-full flex items-center justify-between text-sm font-semibold text-sarto-black"
+            className="w-full flex items-center justify-between text-sm font-semibold text-white"
           >
             <span className="flex items-center gap-2">
               Buyurtma tarkibi ({items.length} ta)
@@ -156,14 +154,14 @@ export default function CheckoutPage() {
           </button>
 
           {isMobileSummaryOpen && (
-            <div className="pt-4 mt-4 border-t border-sarto-border space-y-3">
+            <div className="pt-4 mt-4 border-t border-white/10 space-y-3">
               {items.map((item) => (
-                <div key={item.variant_id} className="flex justify-between text-xs">
+                <div key={item.variant_id} className="flex justify-between text-xs text-white/80">
                   <span>{item.product.name} ({item.variant.size}) × {item.quantity}</span>
-                  <span className="font-semibold">{formatUZS(item.variant.price_uzs * item.quantity)}</span>
+                  <span className="font-semibold text-white">{formatUZS(item.variant.price_uzs * item.quantity)}</span>
                 </div>
               ))}
-              <div className="pt-2 border-t border-sarto-border flex justify-between text-xs text-sarto-muted">
+              <div className="pt-2 border-t border-white/10 flex justify-between text-xs text-white/50">
                 <span>Yetkazib berish:</span>
                 <span>{shippingFee === 0 ? "Bepul" : formatUZS(shippingFee)}</span>
               </div>
@@ -172,8 +170,8 @@ export default function CheckoutPage() {
         </div>
 
         {error && (
-          <div className="mb-8 p-4 bg-red-50 border border-red-200 text-sm text-red-800 flex items-start gap-2.5">
-            <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+          <div className="mb-8 p-4 bg-red-950/60 border border-red-500/50 rounded-2xl text-sm text-red-200 flex items-start gap-2.5">
+            <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
         )}
@@ -182,12 +180,12 @@ export default function CheckoutPage() {
           {/* Main Form (7 cols on desktop) */}
           <form onSubmit={handleSubmit} className="lg:col-span-7 space-y-10">
             {/* Step 1: Customer Info */}
-            <div className="space-y-5">
-              <div className="flex items-center gap-2.5 pb-3 border-b border-sarto-border">
-                <span className="w-6 h-6 rounded-full bg-sarto-black text-white text-xs font-bold flex items-center justify-center">
+            <div className="bg-[#141414] border border-white/10 rounded-3xl p-6 sm:p-8 space-y-5">
+              <div className="flex items-center gap-2.5 pb-3 border-b border-white/10">
+                <span className="w-6 h-6 rounded-full bg-white text-black text-xs font-bold flex items-center justify-center">
                   1
                 </span>
-                <h2 className="text-base font-semibold text-sarto-black">
+                <h2 className="text-base font-bold text-white">
                   Qabul qiluvchi ma’lumotlari
                 </h2>
               </div>
@@ -220,35 +218,35 @@ export default function CheckoutPage() {
             </div>
 
             {/* Step 2: Delivery Address */}
-            <div className="space-y-5">
-              <div className="flex items-center gap-2.5 pb-3 border-b border-sarto-border">
-                <span className="w-6 h-6 rounded-full bg-sarto-black text-white text-xs font-bold flex items-center justify-center">
+            <div className="bg-[#141414] border border-white/10 rounded-3xl p-6 sm:p-8 space-y-5">
+              <div className="flex items-center gap-2.5 pb-3 border-b border-white/10">
+                <span className="w-6 h-6 rounded-full bg-white text-black text-xs font-bold flex items-center justify-center">
                   2
                 </span>
-                <h2 className="text-base font-semibold text-sarto-black">
+                <h2 className="text-base font-bold text-white">
                   Yetkazib berish manzili
                 </h2>
               </div>
 
               {/* Region Select */}
               <div className="space-y-1.5 text-left">
-                <label htmlFor="checkout-region" className="block text-sm font-medium text-sarto-black">
-                  Viloyat / Shahar <span className="text-red-600">*</span>
+                <label htmlFor="checkout-region" className="block text-xs sm:text-sm font-medium text-white/90">
+                  Viloyat / Shahar <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
                   <select
                     id="checkout-region"
                     value={formData.region}
                     onChange={(e) => setFormData({ ...formData, region: e.target.value })}
-                    className="w-full min-h-[46px] border border-sarto-border bg-white px-3.5 pr-10 text-sm sm:text-base text-sarto-black focus-visible:outline-none focus-visible:border-sarto-black focus-visible:ring-1 focus-visible:ring-sarto-black rounded-none cursor-pointer appearance-none"
+                    className="w-full min-h-[46px] border border-white/15 bg-[#141414] px-4 pr-10 text-sm sm:text-base text-white focus-visible:outline-none focus-visible:border-white focus-visible:ring-1 focus-visible:ring-white rounded-xl cursor-pointer appearance-none"
                   >
                     {UZBEKISTAN_REGIONS.map((r) => (
-                      <option key={r} value={r}>
+                      <option key={r} value={r} className="bg-[#141414] text-white">
                         {r}
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="w-4 h-4 text-sarto-muted absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <ChevronDown className="w-4 h-4 text-white/50 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>
               </div>
 
@@ -295,25 +293,25 @@ export default function CheckoutPage() {
             </div>
 
             {/* Step 3: Payment Method */}
-            <div className="space-y-5">
-              <div className="flex items-center gap-2.5 pb-3 border-b border-sarto-border">
-                <span className="w-6 h-6 rounded-full bg-sarto-black text-white text-xs font-bold flex items-center justify-center">
+            <div className="bg-[#141414] border border-white/10 rounded-3xl p-6 sm:p-8 space-y-5">
+              <div className="flex items-center gap-2.5 pb-3 border-b border-white/10">
+                <span className="w-6 h-6 rounded-full bg-white text-black text-xs font-bold flex items-center justify-center">
                   3
                 </span>
-                <h2 className="text-base font-semibold text-sarto-black">
+                <h2 className="text-base font-bold text-white">
                   To‘lov usuli
                 </h2>
               </div>
 
-              <div className="p-5 border-2 border-sarto-black bg-sarto-ivory/40 flex items-start gap-3.5">
+              <div className="p-5 border border-white/20 rounded-2xl bg-white/5 flex items-start gap-3.5">
                 <div className="pt-0.5">
-                  <CheckCircle2 className="w-5 h-5 text-sarto-black" />
+                  <CheckCircle2 className="w-5 h-5 text-white" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-sm font-semibold text-sarto-black block">
+                  <span className="text-sm font-semibold text-white block">
                     Yetkazib berilganda to‘lov (Naqd pul yoki Karta orqali)
                   </span>
-                  <p className="text-xs text-sarto-muted leading-relaxed">
+                  <p className="text-xs text-white/50 leading-relaxed">
                     Xarid uchun oldindan to‘lov talab etilmaydi. Tovarni kuryer oldida ko‘rib,
                     kiyib ko‘rishingiz va shundan so‘nggina to‘lovni amalga oshirishingiz mumkin.
                   </p>
@@ -326,74 +324,74 @@ export default function CheckoutPage() {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full min-h-[54px] text-base"
+                className="w-full min-h-[52px] text-base"
                 isLoading={isLoading}
                 disabled={items.length === 0}
               >
                 Buyurtmani tasdiqlash ({formatUZS(finalTotal)})
               </Button>
-              <p className="text-xs text-sarto-muted text-center mt-3">
+              <p className="text-xs text-white/40 text-center mt-3">
                 «Buyurtmani tasdiqlash» tugmasini bosish orqali siz foydalanish shartlariga rozilik bildirasiz.
               </p>
             </div>
           </form>
 
           {/* Desktop Order Summary Sidebar (5 cols on desktop) */}
-          <div className="lg:col-span-5 bg-[#FAFAFA] border border-sarto-border p-6 sm:p-7 space-y-6 sticky top-24">
-            <h2 className="text-base font-semibold text-sarto-black pb-3 border-b border-sarto-border">
+          <div className="lg:col-span-5 bg-[#141414] border border-white/10 rounded-3xl p-6 sm:p-8 space-y-6 sticky top-24">
+            <h2 className="text-base font-bold text-white pb-3 border-b border-white/10">
               Buyurtmangiz tarkibi ({items.length})
             </h2>
 
-            <div className="divide-y divide-sarto-border max-h-80 overflow-y-auto pr-1">
+            <div className="divide-y divide-white/10 max-h-80 overflow-y-auto pr-1">
               {items.map((item) => (
                 <div key={item.variant_id} className="py-3 flex gap-3 items-center text-sm">
-                  <div className="w-14 h-18 relative bg-sarto-ivory shrink-0 border border-sarto-border overflow-hidden">
+                  <div className="w-14 h-16 relative bg-[#ECE9E2] rounded-xl shrink-0 border border-white/10 overflow-hidden p-1 flex items-center justify-center">
                     <Image
                       src={item.product.primary_image || "/images/products/oxford-shirt.jpg"}
                       alt={item.product.name}
                       fill
-                      className="object-cover object-center"
+                      className="object-contain object-center"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-sarto-black truncate">
+                    <p className="font-semibold text-white truncate text-xs sm:text-sm">
                       {item.product.name}
                     </p>
-                    <p className="text-xs text-sarto-muted mt-0.5">
+                    <p className="text-xs text-white/50 mt-0.5">
                       {item.variant.size && `O‘lcham: ${item.variant.size}`} | {item.quantity} dona
                     </p>
                   </div>
-                  <span className="font-semibold text-sarto-black shrink-0">
+                  <span className="font-bold text-white shrink-0 text-xs sm:text-sm">
                     {formatUZS(item.variant.price_uzs * item.quantity)}
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="space-y-3 pt-4 border-t border-sarto-border text-sm">
-              <div className="flex justify-between text-sarto-muted">
+            <div className="space-y-3 pt-4 border-t border-white/10 text-sm">
+              <div className="flex justify-between text-white/60">
                 <span>Mahsulotlar summasi:</span>
-                <span className="text-sarto-black font-semibold">{formatUZS(subtotal)}</span>
+                <span className="text-white font-semibold">{formatUZS(subtotal)}</span>
               </div>
-              <div className="flex justify-between text-sarto-muted">
+              <div className="flex justify-between text-white/60">
                 <span>Yetkazib berish ({formData.region}):</span>
-                <span className="text-sarto-black font-semibold">
-                  {shippingFee === 0 ? <strong className="text-emerald-700">Bepul</strong> : formatUZS(shippingFee)}
+                <span className="text-white font-semibold">
+                  {shippingFee === 0 ? <strong className="text-emerald-400">Bepul</strong> : formatUZS(shippingFee)}
                 </span>
               </div>
-              <div className="pt-3 border-t border-sarto-border flex justify-between text-lg font-bold text-sarto-black">
+              <div className="pt-3 border-t border-white/10 flex justify-between text-lg font-bold text-white">
                 <span>Jami to‘lov:</span>
                 <span>{formatUZS(finalTotal)}</span>
               </div>
             </div>
 
-            <div className="p-4 bg-white border border-sarto-border space-y-2 text-xs text-sarto-muted">
-              <div className="flex items-center gap-2 text-sarto-black">
-                <Truck className="w-4 h-4 shrink-0 text-sarto-black" />
+            <div className="p-4 bg-[#181818] border border-white/10 rounded-2xl space-y-2 text-xs text-white/60">
+              <div className="flex items-center gap-2 text-white">
+                <Truck className="w-4 h-4 shrink-0 text-white" />
                 <span>O‘zbekiston bo‘ylab 1—3 ish kunida yetkaziladi</span>
               </div>
-              <div className="flex items-center gap-2 text-sarto-black">
-                <ShieldCheck className="w-4 h-4 shrink-0 text-sarto-black" />
+              <div className="flex items-center gap-2 text-white">
+                <ShieldCheck className="w-4 h-4 shrink-0 text-white" />
                 <span>14 kun ichida almashtirish kafolati</span>
               </div>
             </div>

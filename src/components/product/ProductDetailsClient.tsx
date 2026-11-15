@@ -5,8 +5,7 @@ import Image from "next/image";
 import { Product, ProductVariant } from "@/types";
 import { formatUZS } from "@/lib/format";
 import { useCart } from "@/features/cart/CartContext";
-import { Button } from "@/components/ui/Button";
-import { Check, Shield, Truck, RefreshCw, Ruler, X, AlertCircle } from "lucide-react";
+import { Check, Shield, Truck, RefreshCw, Ruler, X, AlertCircle, ShoppingBag } from "lucide-react";
 
 interface ProductDetailsClientProps {
   product: Product;
@@ -58,16 +57,16 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-      {/* Product Image Gallery (7 cols on desktop) */}
+      {/* Product Image Stage (7 cols on desktop) */}
       <div className="lg:col-span-7 space-y-4">
-        <div className="relative aspect-[3/4] w-full bg-sarto-ivory border border-sarto-border overflow-hidden shadow-xs">
+        <div className="relative aspect-[4/5] w-full bg-[#ECE9E2] rounded-3xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center p-6 sm:p-10">
           <Image
             src={imagePath}
             alt={product.name}
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 58vw"
-            className="object-cover object-center"
+            className="object-contain object-center"
           />
         </div>
       </div>
@@ -75,19 +74,19 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
       {/* Product Purchase Actions & Info (5 cols on desktop) */}
       <div className="lg:col-span-5 space-y-6 sm:space-y-8">
         <div>
-          <span className="text-xs font-mono text-sarto-muted uppercase tracking-wider block mb-1">
+          <span className="text-xs font-mono text-white/40 uppercase tracking-wider block mb-1">
             SKU: {selectedVariant?.sku || product.sku || "SRT-001"}
           </span>
-          <h1 className="font-serif text-2xl sm:text-4xl text-sarto-black leading-tight">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
             {product.name}
           </h1>
 
           <div className="mt-3.5 flex items-baseline gap-3">
-            <span className="text-2xl sm:text-3xl font-bold text-sarto-black">
+            <span className="text-2xl sm:text-3xl font-bold text-white">
               {formatUZS(price)}
             </span>
             {comparePrice && comparePrice > price && (
-              <span className="text-base text-sarto-muted line-through font-normal">
+              <span className="text-base text-white/40 line-through font-normal">
                 {formatUZS(comparePrice)}
               </span>
             )}
@@ -96,15 +95,15 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
 
         {/* Size Selector with Size Guide button */}
         {variants.length > 0 && (
-          <div className="space-y-3 pt-4 border-t border-sarto-border">
+          <div className="space-y-3 pt-4 border-t border-white/10">
             <div className="flex justify-between items-center text-sm">
-              <span className="font-semibold text-sarto-black">
+              <span className="font-semibold text-white">
                 O‘lchamni tanlang:
               </span>
               <button
                 type="button"
                 onClick={() => setIsSizeGuideOpen(true)}
-                className="text-xs font-medium text-sarto-black hover:text-sarto-taupe flex items-center gap-1.5 underline underline-offset-4 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sarto-black"
+                className="text-xs font-medium text-white/70 hover:text-white flex items-center gap-1.5 underline underline-offset-4 cursor-pointer focus-visible:outline-none"
               >
                 <Ruler className="w-3.5 h-3.5" /> O‘lchamlar jadvali
               </button>
@@ -125,12 +124,12 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                       setQuantity(1);
                     }}
                     aria-pressed={isSelected}
-                    className={`min-w-[56px] min-h-[46px] px-3.5 border text-sm font-semibold tracking-wide transition-all cursor-pointer flex items-center justify-center select-none ${
+                    className={`min-w-[56px] min-h-[44px] px-4 rounded-full border text-xs sm:text-sm font-semibold tracking-wide transition-all cursor-pointer flex items-center justify-center select-none ${
                       isSelected
-                        ? "bg-sarto-black text-white border-sarto-black shadow-xs ring-2 ring-sarto-black ring-offset-2"
+                        ? "bg-white text-black border-white shadow-md ring-2 ring-white ring-offset-2 ring-offset-black"
                         : available
-                        ? "border-sarto-border text-sarto-black hover:border-sarto-black bg-white"
-                        : "border-sarto-border/40 text-sarto-muted/50 bg-sarto-ivory/30 cursor-not-allowed line-through"
+                        ? "border-white/15 bg-[#141414] text-white hover:border-white/40 hover:bg-white/5"
+                        : "border-white/10 text-white/30 bg-white/5 cursor-not-allowed line-through"
                     }`}
                   >
                     {v.size || "Standard"}
@@ -139,16 +138,16 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
               })}
             </div>
 
-            <p className="text-xs text-sarto-muted flex items-center gap-1.5 pt-1">
+            <p className="text-xs text-white/60 flex items-center gap-1.5 pt-1">
               {inStock ? (
                 <>
-                  <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block" />
-                  Omborda mavjud: <strong className="text-sarto-black">{selectedVariant?.stock_quantity} dona</strong>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
+                  Omborda mavjud: <strong className="text-white">{selectedVariant?.stock_quantity} dona</strong>
                 </>
               ) : (
                 <>
-                  <AlertCircle className="w-3.5 h-3.5 text-red-600" />
-                  <span className="text-red-700 font-medium">Tanlangan o‘lcham omborda tugagan</span>
+                  <AlertCircle className="w-3.5 h-3.5 text-red-500" />
+                  <span className="text-red-400 font-medium">Tanlangan o‘lcham omborda tugagan</span>
                 </>
               )}
             </p>
@@ -156,19 +155,20 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
         )}
 
         {/* Quantity and Primary Add-to-Cart Action */}
-        <div className="space-y-4 pt-4 border-t border-sarto-border">
+        <div className="space-y-4 pt-4 border-t border-white/10">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            {/* Quantity Selector - 44x44px touch targets */}
-            <div className="flex items-center border border-sarto-border bg-white min-h-[50px] w-full sm:w-auto justify-between sm:justify-start">
+            {/* Quantity Selector */}
+            <div className="flex items-center justify-between border border-white/20 rounded-full px-2 py-1 bg-[#141414] min-w-[120px] min-h-[48px]">
               <button
                 type="button"
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="min-w-[44px] min-h-[48px] flex items-center justify-center hover:bg-sarto-ivory text-base font-bold transition-colors cursor-pointer select-none"
-                aria-label="Miqdorni 1 taga kamaytirish"
+                disabled={quantity <= 1 || !inStock}
+                className="w-10 h-10 flex items-center justify-center text-white/70 hover:text-white disabled:opacity-30 cursor-pointer text-base"
+                aria-label="Miqdorni kamaytirish"
               >
-                −
+                -
               </button>
-              <span className="px-5 text-sm font-semibold select-none text-center min-w-[36px]">
+              <span className="font-semibold text-white text-sm px-2">
                 {quantity}
               </span>
               <button
@@ -177,156 +177,156 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                   const max = selectedVariant?.stock_quantity || 1;
                   setQuantity(Math.min(max, quantity + 1));
                 }}
-                className="min-w-[44px] min-h-[48px] flex items-center justify-center hover:bg-sarto-ivory text-base font-bold transition-colors cursor-pointer select-none"
-                aria-label="Miqdorni 1 taga oshirish"
+                disabled={!inStock || quantity >= (selectedVariant?.stock_quantity || 1)}
+                className="w-10 h-10 flex items-center justify-center text-white/70 hover:text-white disabled:opacity-30 cursor-pointer text-base"
+                aria-label="Miqdorni ko‘paytirish"
               >
                 +
               </button>
             </div>
 
-            <Button
-              size="lg"
-              className="flex-1 min-h-[50px]"
-              disabled={!inStock}
+            {/* Primary CTA Button */}
+            <button
+              type="button"
               onClick={handleAddToCart}
+              disabled={!inStock}
+              className={`flex-1 min-h-[48px] px-8 rounded-full text-sm font-semibold tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg ${
+                isAdded
+                  ? "bg-emerald-600 text-white"
+                  : inStock
+                  ? "bg-white text-black hover:bg-[#EAE6DF] hover:scale-[1.01] active:scale-[0.99]"
+                  : "bg-white/10 text-white/40 cursor-not-allowed"
+              }`}
             >
               {isAdded ? (
-                <span className="flex items-center gap-2">
-                  <Check className="w-5 h-5 text-emerald-400" /> Savatchaga qo‘shildi
-                </span>
+                <>
+                  <Check className="w-4 h-4" /> Savatchaga qo‘shildi
+                </>
               ) : inStock ? (
-                "Savatchaga qo‘shish"
+                <>
+                  <ShoppingBag className="w-4 h-4" /> Savatga qo‘shish
+                </>
               ) : (
                 "Sotuvda mavjud emas"
               )}
-            </Button>
+            </button>
           </div>
         </div>
 
-        {/* Description & Details Sections */}
-        <div className="space-y-5 pt-6 border-t border-sarto-border text-sm">
+        {/* Brand Highlights / Guarantees */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-white/10 text-xs text-white/70">
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#141414] border border-white/[0.08]">
+            <Truck className="w-4 h-4 text-white shrink-0" />
+            <span>1-3 kunda yetkazish</span>
+          </div>
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#141414] border border-white/[0.08]">
+            <RefreshCw className="w-4 h-4 text-white shrink-0" />
+            <span>14 kunlik qaytarish</span>
+          </div>
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#141414] border border-white/[0.08]">
+            <Shield className="w-4 h-4 text-white shrink-0" />
+            <span>100% asillik kafolati</span>
+          </div>
+        </div>
+
+        {/* Product Details Section */}
+        <div className="space-y-4 pt-6 border-t border-white/10 text-sm">
           <div>
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-sarto-black mb-2">
-              Mahsulot tavsifi
-            </h2>
-            <p className="text-sm text-sarto-black/80 leading-relaxed whitespace-pre-line">
+            <h2 className="text-sm font-semibold text-white mb-2">Tavsif</h2>
+            <p className="text-white/70 leading-relaxed text-xs sm:text-sm">
               {product.description}
             </p>
           </div>
 
           {product.material && (
-            <div className="p-4 bg-sarto-ivory/50 border border-sarto-border space-y-1">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-sarto-black">
+            <div className="pt-2">
+              <h3 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-1">
                 Mato va tarkibi
               </h3>
-              <p className="text-sm text-sarto-black/80">{product.material}</p>
+              <p className="text-xs sm:text-sm text-white/90">{product.material}</p>
             </div>
           )}
 
           {product.care_instructions && (
-            <div className="space-y-1">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-sarto-black">
-                Parvarishlash
+            <div className="pt-2">
+              <h3 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-1">
+                Parvarishlash ko‘rsatmalari
               </h3>
-              <p className="text-xs text-sarto-muted leading-relaxed">{product.care_instructions}</p>
+              <p className="text-xs sm:text-sm text-white/90">{product.care_instructions}</p>
             </div>
           )}
         </div>
-
-        {/* Reassuring Trust Badges */}
-        <div className="grid grid-cols-3 gap-3 pt-6 border-t border-sarto-border text-center">
-          <div className="p-3 bg-white border border-sarto-border space-y-1">
-            <Truck className="w-5 h-5 mx-auto text-sarto-black stroke-[1.5]" />
-            <p className="text-xs font-semibold text-sarto-black">Tez yetkazish</p>
-            <p className="text-[11px] text-sarto-muted">1—3 ish kuni</p>
-          </div>
-          <div className="p-3 bg-white border border-sarto-border space-y-1">
-            <RefreshCw className="w-5 h-5 mx-auto text-sarto-black stroke-[1.5]" />
-            <p className="text-xs font-semibold text-sarto-black">Almashtirish</p>
-            <p className="text-[11px] text-sarto-muted">14 kun ichida</p>
-          </div>
-          <div className="p-3 bg-white border border-sarto-border space-y-1">
-            <Shield className="w-5 h-5 mx-auto text-sarto-black stroke-[1.5]" />
-            <p className="text-xs font-semibold text-sarto-black">Kafolatlangan</p>
-            <p className="text-[11px] text-sarto-muted">100% Asl mahsulot</p>
-          </div>
-        </div>
       </div>
 
-      {/* Accessible Size Guide Modal */}
+      {/* Size Guide Modal Dialog */}
       {isSizeGuideOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs"
-            onClick={() => setIsSizeGuideOpen(false)}
-            aria-hidden="true"
-          />
-          <div className="relative bg-white max-w-lg w-full p-6 sm:p-8 shadow-2xl z-10 space-y-6 animate-in zoom-in-95 duration-200">
-            <div className="flex justify-between items-center border-b border-sarto-border pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="bg-[#141414] border border-white/15 rounded-3xl w-full max-w-lg p-6 sm:p-8 space-y-6 text-white shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-2">
-                <Ruler className="w-5 h-5 text-sarto-black" />
-                <h3 className="font-serif text-xl text-sarto-black">Erkaklar o‘lchamlar jadvali</h3>
+                <Ruler className="w-5 h-5 text-white" />
+                <h3 className="text-lg font-bold">O‘lchamlar jadvali</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsSizeGuideOpen(false)}
-                className="min-w-[40px] min-h-[40px] flex items-center justify-center text-sarto-muted hover:text-sarto-black cursor-pointer"
+                className="w-8 h-8 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white flex items-center justify-center cursor-pointer"
                 aria-label="Jadvalni yopish"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <p className="text-xs text-sarto-muted">
-              Barcha o‘lchamlar santimetrda (sm) ko‘rsatilgan. Agar ikki o‘lcham orasida ikkilansangiz, qulaylik uchun kattaroq o‘lchamni tanlash tavsiya etiladi.
-            </p>
-
             <div className="overflow-x-auto">
-              <table className="w-full text-xs text-left">
-                <thead className="bg-sarto-ivory border-b border-sarto-border font-semibold text-sarto-black">
-                  <tr>
-                    <th className="p-2.5">O‘lcham</th>
-                    <th className="p-2.5">Bo‘y (sm)</th>
-                    <th className="p-2.5">Ko‘krak (sm)</th>
-                    <th className="p-2.5">Bel (sm)</th>
+              <table className="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-white/15 text-white/60">
+                    <th className="py-2.5 pr-4">O‘lcham</th>
+                    <th className="py-2.5 px-3">Ko‘krak (sm)</th>
+                    <th className="py-2.5 px-3">Bel (sm)</th>
+                    <th className="py-2.5 pl-3">Bo‘y (sm)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-sarto-border">
+                <tbody className="divide-y divide-white/10 text-white/90">
                   <tr>
-                    <td className="p-2.5 font-bold">S (46)</td>
-                    <td className="p-2.5">170—175</td>
-                    <td className="p-2.5">92—96</td>
-                    <td className="p-2.5">80—84</td>
+                    <td className="py-2.5 pr-4 font-bold text-white">S (46)</td>
+                    <td className="py-2.5 px-3">92 - 96</td>
+                    <td className="py-2.5 px-3">78 - 82</td>
+                    <td className="py-2.5 pl-3">170 - 175</td>
                   </tr>
                   <tr>
-                    <td className="p-2.5 font-bold">M (48)</td>
-                    <td className="p-2.5">175—180</td>
-                    <td className="p-2.5">96—100</td>
-                    <td className="p-2.5">84—88</td>
+                    <td className="py-2.5 pr-4 font-bold text-white">M (48)</td>
+                    <td className="py-2.5 px-3">96 - 100</td>
+                    <td className="py-2.5 px-3">82 - 86</td>
+                    <td className="py-2.5 pl-3">175 - 180</td>
                   </tr>
                   <tr>
-                    <td className="p-2.5 font-bold">L (50)</td>
-                    <td className="p-2.5">180—185</td>
-                    <td className="p-2.5">100—104</td>
-                    <td className="p-2.5">88—92</td>
+                    <td className="py-2.5 pr-4 font-bold text-white">L (50)</td>
+                    <td className="py-2.5 px-3">100 - 104</td>
+                    <td className="py-2.5 px-3">86 - 90</td>
+                    <td className="py-2.5 pl-3">178 - 184</td>
                   </tr>
                   <tr>
-                    <td className="p-2.5 font-bold">XL (52)</td>
-                    <td className="p-2.5">182—188</td>
-                    <td className="p-2.5">104—108</td>
-                    <td className="p-2.5">92—96</td>
+                    <td className="py-2.5 pr-4 font-bold text-white">XL (52)</td>
+                    <td className="py-2.5 px-3">104 - 108</td>
+                    <td className="py-2.5 px-3">90 - 95</td>
+                    <td className="py-2.5 pl-3">180 - 188</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <Button
-              className="w-full"
-              variant="primary"
+            <p className="text-xs text-white/50 leading-relaxed border-t border-white/10 pt-4">
+              Agar o‘lchamingiz ikkita ko‘rsatkich oralig‘ida bo‘lsa, erkin kiyinish uchun kattaroq o‘lchamni tanlashni tavsiya qilamiz.
+            </p>
+
+            <button
+              type="button"
               onClick={() => setIsSizeGuideOpen(false)}
+              className="w-full py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-white/90 cursor-pointer"
             >
-              Tushunarli, yopish
-            </Button>
+              Tushundim
+            </button>
           </div>
         </div>
       )}

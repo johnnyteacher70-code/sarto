@@ -1,26 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --color-sarto-black: #111111;
-  --color-sarto-charcoal: #292929;
-  --color-sarto-ivory: #EAE6DF;
+  --color-sarto-black: #0A0A0A;
+  --color-sarto-charcoal: #161616;
+  --color-sarto-card: #141414;
+  --color-sarto-ivory: #F2EFE9;
   --color-sarto-taupe: #B8A995;
   --color-sarto-white: #FFFFFF;
-  --color-sarto-muted: #6B665F;
-  --color-sarto-border: #E5E1DA;
+  --color-sarto-muted: #9CA3AF;
+  --color-sarto-border: #262626;
 
   --font-serif: var(--font-playfair), Georgia, serif;
   --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #111111;
+  --background: #0A0A0A;
+  --foreground: #FFFFFF;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: #0A0A0A;
+  color: #FFFFFF;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -29,7 +30,7 @@ body {
 
 /* Accessibility: Focus indicators */
 *:focus-visible {
-  outline: 2px solid #111111;
+  outline: 2px solid #FFFFFF;
   outline-offset: 2px;
 }
 
@@ -49,13 +50,15 @@ body {
 html, body {
   overflow-x: hidden;
   max-width: 100vw;
+  background-color: #0A0A0A;
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 ::selection {
-  background-color: #B8A995;
-  color: #111111;
+  background-color: #FFFFFF;
+  color: #0A0A0A;
 }

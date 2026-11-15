@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
@@ -23,31 +21,30 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <AnnouncementBar />
+    <div className="min-h-screen flex flex-col bg-[#0A0A0A] text-white">
       <Header />
 
       <main className="flex-1 max-w-md mx-auto w-full px-4 py-12 sm:py-20">
         <div className="text-center mb-8 space-y-2">
-          <div className="w-12 h-12 rounded-full bg-sarto-ivory flex items-center justify-center text-sarto-black mx-auto mb-3">
+          <div className="w-12 h-12 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-white mx-auto mb-3">
             <User className="w-6 h-6 stroke-[1.5]" />
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl text-sarto-black">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             {isRegister ? "Ro‘yxatdan o‘tish" : "Shaxsiy kabinetga kirish"}
           </h1>
-          <p className="text-sm text-sarto-muted">
+          <p className="text-xs sm:text-sm text-white/50">
             Buyurtmalar tarixini kuzatish va manzillarni boshqarish uchun
           </p>
         </div>
 
         {message && (
-          <div className="mb-6 p-4 bg-sarto-ivory border border-sarto-border text-xs sm:text-sm text-sarto-black leading-relaxed flex items-start gap-2.5">
-            <ShieldCheck className="w-5 h-5 text-sarto-taupe shrink-0 mt-0.5" />
+          <div className="mb-6 p-4 bg-[#141414] border border-white/15 rounded-2xl text-xs sm:text-sm text-white/90 leading-relaxed flex items-start gap-2.5">
+            <ShieldCheck className="w-5 h-5 text-white/70 shrink-0 mt-0.5" />
             <span>{message}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5 bg-white p-6 sm:p-8 border border-sarto-border shadow-xs">
+        <form onSubmit={handleSubmit} className="space-y-5 bg-[#141414] p-6 sm:p-8 border border-white/10 rounded-3xl shadow-xl">
           {isRegister && (
             <Input
               label="Ism va Familiyangiz"
@@ -67,8 +64,8 @@ export default function LoginPage() {
           />
 
           <div className="space-y-1.5 text-left">
-            <label htmlFor="login-password" className="block text-sm font-medium text-sarto-black">
-              Parol <span className="text-red-600">*</span>
+            <label htmlFor="login-password" className="block text-xs sm:text-sm font-medium text-white/90">
+              Parol <span className="text-red-400">*</span>
             </label>
             <div className="relative">
               <input
@@ -78,12 +75,12 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="flex min-h-[46px] w-full border border-sarto-border bg-white px-3.5 pr-12 py-2.5 text-sm sm:text-base text-sarto-black focus-visible:outline-none focus-visible:border-sarto-black focus-visible:ring-1 focus-visible:ring-sarto-black rounded-none"
+                className="flex min-h-[46px] w-full border border-white/15 bg-[#141414] px-4 pr-12 py-2.5 text-sm sm:text-base text-white focus-visible:outline-none focus-visible:border-white focus-visible:ring-1 focus-visible:ring-white rounded-xl"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="min-w-[40px] min-h-[40px] flex items-center justify-center text-sarto-muted hover:text-sarto-black absolute right-1.5 top-1/2 -translate-y-1/2 cursor-pointer"
+                className="min-w-[40px] min-h-[40px] flex items-center justify-center text-white/50 hover:text-white absolute right-1.5 top-1/2 -translate-y-1/2 cursor-pointer"
                 aria-label={showPassword ? "Parolni yashirish" : "Parolni ko‘rsatish"}
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -95,24 +92,21 @@ export default function LoginPage() {
             {isRegister ? "Hisob yaratish" : "Tizimga kirish"}
           </Button>
 
-          <div className="text-center pt-3 border-t border-sarto-border">
+          <div className="text-center pt-3 border-t border-white/10">
             <button
               type="button"
-              onClick={() => setIsRegister(!isRegister)}
-              className="text-xs sm:text-sm text-sarto-black hover:text-sarto-taupe font-medium transition-colors cursor-pointer py-1"
+              onClick={() => {
+                setIsRegister(!isRegister);
+                setMessage(null);
+              }}
+              className="text-xs text-white/60 hover:text-white underline underline-offset-4 cursor-pointer"
             >
               {isRegister
-                ? "Akkauntingiz bormi? Kirish"
-                : "Akkauntingiz yo‘qmi? Ro‘yxatdan o‘tish"}
+                ? "Akkauntingiz bormi? Tizimga kiring"
+                : "Akkauntingiz yo‘qmi? Yangi hisob ochish"}
             </button>
           </div>
         </form>
-
-        <div className="text-center mt-6">
-          <Link href="/" className="text-xs text-sarto-muted hover:text-sarto-black transition-colors">
-            ← Do‘kon bosh sahifasiga qaytish
-          </Link>
-        </div>
       </main>
 
       <Footer />

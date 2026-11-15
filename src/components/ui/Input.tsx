@@ -19,10 +19,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="block text-sm font-medium text-sarto-black tracking-normal"
+            className="block text-xs sm:text-sm font-medium text-white/90 tracking-normal"
           >
             {label}
-            {required && <span className="text-red-600 ml-1" aria-hidden="true">*</span>}
+            {required && <span className="text-red-400 ml-1" aria-hidden="true">*</span>}
           </label>
         )}
         <input
@@ -33,17 +33,17 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           aria-invalid={error ? "true" : "false"}
           aria-describedby={error ? errorId : helperText ? helperId : undefined}
           className={cn(
-            "flex min-h-[46px] w-full border border-sarto-border bg-white px-3.5 py-2.5 text-sm sm:text-base text-sarto-black transition-colors placeholder:text-sarto-muted/80 focus-visible:outline-none focus-visible:border-sarto-black focus-visible:ring-1 focus-visible:ring-sarto-black disabled:cursor-not-allowed disabled:bg-sarto-ivory/50 disabled:opacity-60 rounded-none",
-            error && "border-red-600 focus-visible:border-red-600 focus-visible:ring-red-600",
+            "flex min-h-[46px] w-full border border-white/15 bg-[#141414] px-4 py-2.5 text-sm sm:text-base text-white transition-colors placeholder:text-white/40 focus-visible:outline-none focus-visible:border-white focus-visible:ring-1 focus-visible:ring-white disabled:cursor-not-allowed disabled:opacity-50 rounded-xl",
+            error && "border-red-500 focus-visible:border-red-500 focus-visible:ring-red-500",
             className
           )}
           {...props}
         />
         {helperText && !error && (
-          <p id={helperId} className="text-xs text-sarto-muted">{helperText}</p>
+          <p id={helperId} className="text-xs text-white/50">{helperText}</p>
         )}
         {error && (
-          <p id={errorId} className="text-xs text-red-600 font-medium flex items-center gap-1 mt-1">
+          <p id={errorId} className="text-xs text-red-400 font-medium flex items-center gap-1 mt-1">
             <span aria-hidden="true">⚠</span> {error}
           </p>
         )}

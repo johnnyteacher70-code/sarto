@@ -26,19 +26,19 @@ export function SortSelect({ currentSort }: SortSelectProps) {
 
   return (
     <div className="flex items-center gap-2 self-start sm:self-auto">
-      <label htmlFor="sort-select" className="text-xs text-sarto-muted font-medium flex items-center gap-1 shrink-0">
+      <label htmlFor="sort-select" className="text-xs text-white/50 font-medium flex items-center gap-1 shrink-0">
         <ArrowUpDown className="w-3.5 h-3.5" /> Saralash:
       </label>
       <select
         id="sort-select"
         value={currentSort}
         onChange={handleSortChange}
-        className="min-h-[42px] border border-sarto-border bg-white px-3 py-1.5 text-xs sm:text-sm text-sarto-black font-medium focus-visible:outline-none focus-visible:border-sarto-black cursor-pointer rounded-none"
+        className="min-h-[38px] border border-white/15 bg-[#141414] px-3.5 py-1.5 text-xs sm:text-sm text-white font-medium focus-visible:outline-none focus-visible:border-white cursor-pointer rounded-full"
       >
-        <option value="newest">Yangi kelganlar</option>
-        <option value="featured">Tavsiya etilganlar</option>
-        <option value="price_asc">Narx: arzonroqdan</option>
-        <option value="price_desc">Narx: qimmatroqdan</option>
+        <option value="newest" className="bg-[#141414] text-white">Yangi kelganlar</option>
+        <option value="featured" className="bg-[#141414] text-white">Tavsiya etilganlar</option>
+        <option value="price_asc" className="bg-[#141414] text-white">Narx: arzonroqdan</option>
+        <option value="price_desc" className="bg-[#141414] text-white">Narx: qimmatroqdan</option>
       </select>
     </div>
   );

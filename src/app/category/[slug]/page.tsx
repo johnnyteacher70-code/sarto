@@ -1,4 +1,3 @@
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ProductCard } from "@/components/product/ProductCard";
@@ -39,33 +38,32 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <AnnouncementBar />
+    <div className="min-h-screen flex flex-col bg-[#0A0A0A] text-white">
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Breadcrumb */}
-        <nav aria-label="Non ushoqlari (Breadcrumbs)" className="text-xs text-sarto-muted mb-4 flex items-center gap-1.5">
-          <Link href="/" className="hover:text-sarto-black transition-colors">
+        <nav aria-label="Non ushoqlari (Breadcrumbs)" className="text-xs text-white/50 mb-4 flex items-center gap-1.5">
+          <Link href="/" className="hover:text-white transition-colors">
             Bosh sahifa
           </Link>
           <span aria-hidden="true">/</span>
-          <Link href="/shop" className="hover:text-sarto-black transition-colors">
+          <Link href="/shop" className="hover:text-white transition-colors">
             Katalog
           </Link>
           <span aria-hidden="true">/</span>
-          <span className="text-sarto-black font-semibold">{category.name}</span>
+          <span className="text-white font-semibold">{category.name}</span>
         </nav>
 
         {/* Category Header */}
-        <div className="border-b border-sarto-border pb-6 mb-8 space-y-4">
+        <div className="border-b border-white/10 pb-6 mb-8 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <h1 className="font-serif text-3xl sm:text-4xl text-sarto-black">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
                 {category.name}
               </h1>
               {category.description && (
-                <p className="text-sm text-sarto-muted mt-1.5 max-w-2xl">
+                <p className="text-xs sm:text-sm text-white/50 mt-1.5 max-w-2xl">
                   {category.description}
                 </p>
               )}
@@ -73,7 +71,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
             <Link
               href="/shop"
-              className="text-xs sm:text-sm font-semibold text-sarto-black hover:text-sarto-taupe flex items-center gap-1.5 transition-colors self-start sm:self-auto shrink-0"
+              className="text-xs sm:text-sm font-semibold text-white/80 hover:text-white flex items-center gap-1.5 transition-colors self-start sm:self-auto shrink-0"
             >
               <ArrowLeft className="w-4 h-4" /> Barcha katalog
             </Link>
@@ -81,12 +79,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
           {/* Sibling Category Chips */}
           <div className="pt-2 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none" aria-label="Boshqa bo‘limlar">
-            <span className="text-xs text-sarto-muted font-medium flex items-center gap-1 mr-1 shrink-0">
+            <span className="text-xs text-white/50 font-medium flex items-center gap-1 mr-1 shrink-0">
               <Filter className="w-3.5 h-3.5" /> Bo‘limlar:
             </span>
             <Link
               href="/shop"
-              className="min-h-[38px] px-4 py-2 border border-sarto-border bg-white text-sarto-black hover:border-sarto-black text-xs sm:text-sm font-medium tracking-wide transition-all whitespace-nowrap flex items-center justify-center"
+              className="min-h-[36px] px-4 py-1.5 rounded-full border border-white/15 bg-[#141414] text-white/80 hover:text-white hover:border-white/30 text-xs sm:text-sm font-medium tracking-wide transition-all whitespace-nowrap flex items-center justify-center"
             >
               Barchasi
             </Link>
@@ -96,10 +94,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <Link
                   key={cat.id}
                   href={`/category/${cat.slug}`}
-                  className={`min-h-[38px] px-4 py-2 border text-xs sm:text-sm font-medium tracking-wide transition-all whitespace-nowrap flex items-center justify-center ${
+                  className={`min-h-[36px] px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium tracking-wide transition-all whitespace-nowrap flex items-center justify-center ${
                     isSelected
-                      ? "bg-sarto-black text-white border-sarto-black shadow-xs font-semibold"
-                      : "border-sarto-border bg-white text-sarto-black hover:border-sarto-black"
+                      ? "bg-white text-black font-semibold shadow-xs"
+                      : "border border-white/15 bg-[#141414] text-white/80 hover:text-white hover:border-white/30"
                   }`}
                 >
                   {cat.name}
@@ -112,14 +110,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {/* Product Grid */}
         {products.length === 0 ? (
           <div className="py-24 text-center max-w-md mx-auto space-y-4">
-            <h2 className="font-serif text-2xl text-sarto-black">Ushbu bo‘limda hozircha mahsulot yo‘q</h2>
-            <p className="text-sm text-sarto-muted">
+            <h2 className="text-2xl font-bold text-white">Ushbu bo‘limda hozircha mahsulot yo‘q</h2>
+            <p className="text-sm text-white/50">
               Yaqin kunlarda ushbu toifaga yangi mahsulotlar qo‘shiladi.
             </p>
             <div className="pt-2">
               <Link
                 href="/shop"
-                className="inline-flex min-h-[46px] items-center justify-center px-6 bg-sarto-black text-white text-sm font-medium tracking-wide hover:bg-sarto-charcoal"
+                className="inline-flex min-h-[44px] items-center justify-center px-6 py-2 rounded-full bg-white text-black text-sm font-semibold hover:bg-white/90"
               >
                 Barcha mahsulotlarni ko‘rish
               </Link>

@@ -1,4 +1,3 @@
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ProductDetailsClient } from "@/components/product/ProductDetailsClient";
@@ -33,33 +32,32 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <AnnouncementBar />
+    <div className="min-h-screen flex flex-col bg-[#0A0A0A] text-white">
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Breadcrumb */}
-        <nav className="text-xs text-sarto-muted uppercase tracking-wider mb-8">
-          <Link href="/" className="hover:text-sarto-black transition-colors">
+        <nav aria-label="Non ushoqlari (Breadcrumbs)" className="text-xs text-white/50 mb-8 flex items-center gap-1.5 flex-wrap">
+          <Link href="/" className="hover:text-white transition-colors">
             Bosh sahifa
-          </Link>{" "}
-          /{" "}
-          <Link href="/shop" className="hover:text-sarto-black transition-colors">
+          </Link>
+          <span aria-hidden="true">/</span>
+          <Link href="/shop" className="hover:text-white transition-colors">
             Katalog
-          </Link>{" "}
-          /{" "}
+          </Link>
           {product.category && (
             <>
+              <span aria-hidden="true">/</span>
               <Link
                 href={`/category/${product.category.slug}`}
-                className="hover:text-sarto-black transition-colors"
+                className="hover:text-white transition-colors"
               >
                 {product.category.name}
-              </Link>{" "}
-              /{" "}
+              </Link>
             </>
           )}
-          <span className="text-sarto-black font-medium">{product.name}</span>
+          <span aria-hidden="true">/</span>
+          <span className="text-white font-medium">{product.name}</span>
         </nav>
 
         <ProductDetailsClient product={product} />
