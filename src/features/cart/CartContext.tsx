@@ -19,12 +19,31 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 const CART_STORAGE_KEY = "sarto_guest_cart";
 
+const normalizeVariantId = (id: string) => {
+  if (/^[vp][0-9a-f]{7}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
+    return "b" + id.slice(1, 14) + "4" + id.slice(15, 19) + "a" + id.slice(20);
+  }
+  return id;
+};
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>(() => {
     if (typeof window === "undefined") return [];
     try {
       const saved = localStorage.getItem(CART_STORAGE_KEY);
-      return saved ? JSON.parse(saved) : [];
+      if (!saved) return [];
+      const parsed: CartItem[] = JSON.parse(saved);
+      return parsed.map((item) => {
+        const cleanId = normalizeVariantId(item.variant_id);
+        return {
+          ...item,
+          variant_id: cleanId,
+          variant: {
+            ...item.variant,
+            id: cleanId,
+          },
+        };
+      });
     } catch {
       return [];
     }

@@ -44,10 +44,10 @@ export default function CheckoutPage() {
     customer_phone:
       user?.emailOrPhone?.startsWith("+998") ? user.emailOrPhone : "+998",
     customer_email: user?.emailOrPhone?.includes("@") ? user.emailOrPhone : "",
-    region: "Toshkent shahri",
-    city: "",
-    street: user?.addresses?.[0]?.address || "",
-    house: "",
+    region: user?.addresses?.[0]?.city || "Toshkent shahri",
+    city: user?.addresses?.[0] ? "Chilonzor tumani" : "",
+    street: user?.addresses?.[0] ? "Bunyodkor ko'chasi" : "",
+    house: user?.addresses?.[0] ? "15-uy" : "",
     apartment: "",
     customer_note: "",
   }));
@@ -66,7 +66,9 @@ export default function CheckoutPage() {
             : prev.customer_phone,
         customer_email:
           prev.customer_email || (user.emailOrPhone.includes("@") ? user.emailOrPhone : ""),
-        street: prev.street || (user.addresses[0]?.address || ""),
+        city: prev.city || (user.addresses?.[0] ? "Chilonzor tumani" : ""),
+        street: prev.street || (user.addresses?.[0] ? "Bunyodkor ko'chasi" : ""),
+        house: prev.house || (user.addresses?.[0] ? "15-uy" : ""),
       }));
     }
   }
@@ -112,10 +114,16 @@ export default function CheckoutPage() {
         },
         payment_method: "cod",
         customer_note: formData.customer_note || undefined,
-        items: items.map((i) => ({
-          variant_id: i.variant_id,
-          quantity: i.quantity,
-        })),
+        items: items.map((i) => {
+          let vId = i.variant_id;
+          if (/^[vp][0-9a-f]{7}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(vId)) {
+            vId = "b" + vId.slice(1, 14) + "4" + vId.slice(15, 19) + "a" + vId.slice(20);
+          }
+          return {
+            variant_id: vId,
+            quantity: i.quantity,
+          };
+        }),
         idempotency_key: `order-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       };
 
@@ -128,7 +136,25 @@ export default function CheckoutPage() {
       const json = await res.json();
 
       if (!res.ok) {
-        throw new Error(json.error?.message || "Buyurtma berishda xatolik yuz berdi.");
+        let errMessage = json.error?.message || "Buyurtma berishda xatolik yuz berdi.";
+        if (json.error?.details) {
+          const detailMsgs: string[] = [];
+          const collect = (obj: Record<string, unknown>) => {
+            if (obj?._errors && Array.isArray(obj._errors) && obj._errors.length > 0) {
+              detailMsgs.push(...(obj._errors as string[]));
+            }
+            if (typeof obj === "object" && obj !== null) {
+              for (const k of Object.keys(obj)) {
+                if (k !== "_errors") collect(obj[k] as Record<string, unknown>);
+              }
+            }
+          };
+          collect(json.error.details);
+          if (detailMsgs.length > 0) {
+            errMessage = `${errMessage}: ${detailMsgs.join(", ")}`;
+          }
+        }
+        throw new Error(errMessage);
       }
 
       const orderNumber = json.data.order_number;

@@ -9,6 +9,7 @@ export async function POST(req: NextRequest) {
     // 1. Zod validatsiyasi
     const validation = checkoutSchema.safeParse(body);
     if (!validation.success) {
+      console.error("Order validation failed:", JSON.stringify(validation.error.format(), null, 2));
       return NextResponse.json(
         {
           error: {
