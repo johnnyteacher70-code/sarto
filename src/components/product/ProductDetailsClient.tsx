@@ -5,7 +5,8 @@ import Image from "next/image";
 import { Product, ProductVariant } from "@/types";
 import { formatUZS } from "@/lib/format";
 import { useCart } from "@/features/cart/CartContext";
-import { Check, Shield, Truck, RefreshCw, Ruler, X, AlertCircle, ShoppingBag } from "lucide-react";
+import { useWishlist } from "@/features/wishlist/WishlistContext";
+import { Check, Shield, Truck, RefreshCw, Ruler, X, AlertCircle, ShoppingBag, Heart } from "lucide-react";
 
 interface ProductDetailsClientProps {
   product: Product;
@@ -13,6 +14,8 @@ interface ProductDetailsClientProps {
 
 export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
   const { addItem } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  const isWishlisted = isInWishlist(product.id);
   const variants = product.variants || [];
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(
     variants[0] || null
@@ -209,6 +212,21 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
               ) : (
                 "Sotuvda mavjud emas"
               )}
+            </button>
+
+            {/* Wishlist Button */}
+            <button
+              type="button"
+              onClick={() => toggleWishlist(product)}
+              className={`min-w-[48px] min-h-[48px] rounded-full border border-white/20 flex items-center justify-center transition-all cursor-pointer ${
+                isWishlisted
+                  ? "bg-red-500/15 border-red-500/50 text-red-500"
+                  : "bg-[#141414] hover:bg-white/10 text-white/80 hover:text-white"
+              }`}
+              aria-label={isWishlisted ? "Sevimlilardan o‘chirish" : "Sevimlilarga qo‘shish"}
+              title={isWishlisted ? "Sevimlilardan o‘chirish" : "Sevimlilarga qo‘shish"}
+            >
+              <Heart className={`w-5 h-5 ${isWishlisted ? "fill-red-500" : ""}`} />
             </button>
           </div>
         </div>

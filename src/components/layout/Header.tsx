@@ -6,6 +6,7 @@ import { useState, useEffect, useSyncExternalStore } from "react";
 import { Search, ShoppingBag, Heart, Menu, X, ArrowRight } from "lucide-react";
 import { useCart } from "@/features/cart/CartContext";
 import { useAuth } from "@/features/auth/AuthContext";
+import { useWishlist } from "@/features/wishlist/WishlistContext";
 
 const emptySubscribe = () => () => {};
 
@@ -18,6 +19,7 @@ export function Header() {
     () => false
   );
   const { totalItems, setIsCartOpen } = useCart();
+  const { totalWishlist } = useWishlist();
   const { user } = useAuth();
 
   const navigation = [
@@ -97,10 +99,15 @@ export function Header() {
 
             <Link
               href="/wishlist"
-              className="hidden sm:flex min-w-[40px] min-h-[40px] items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer"
-              aria-label="Sevimli mahsulotlarim"
+              className="hidden sm:flex min-w-[40px] min-h-[40px] items-center justify-center text-white/80 hover:text-white transition-colors relative cursor-pointer"
+              aria-label={`Sevimli mahsulotlarim, ${isMounted ? totalWishlist : 0} ta tovar`}
             >
               <Heart className="w-5 h-5 stroke-[1.75]" />
+              {isMounted && totalWishlist > 0 && (
+                <span className="absolute top-1 right-1 bg-red-600 text-white text-[10px] min-w-[17px] h-[17px] px-1 rounded-full flex items-center justify-center font-bold leading-none">
+                  {totalWishlist}
+                </span>
+              )}
             </Link>
 
             <button

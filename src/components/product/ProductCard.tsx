@@ -5,15 +5,16 @@ import Image from "next/image";
 import { Product } from "@/types";
 import { formatUZS } from "@/lib/format";
 import { Heart, ShoppingBag } from "lucide-react";
-import { useState } from "react";
 import { useCart } from "@/features/cart/CartContext";
+import { useWishlist } from "@/features/wishlist/WishlistContext";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  const isWishlisted = isInWishlist(product.id);
   const { addItem } = useCart();
 
   const defaultVariant = product.variants?.[0];
@@ -89,9 +90,9 @@ export function ProductCard({ product }: ProductCardProps) {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            setIsWishlisted(!isWishlisted)}
-          }
-          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/70 hover:bg-white text-black flex items-center justify-center transition-all cursor-pointer backdrop-blur-md shadow-xs z-10 focus-visible:outline-none"
+            toggleWishlist(product);
+          }}
+          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/70 hover:bg-white text-black flex items-center justify-center transition-all cursor-pointer backdrop-blur-md shadow-xs z-10 focus-visible:outline-none hover:scale-105 active:scale-95"
           aria-label={isWishlisted ? `${product.name}ni sevimlilardan o‘chirish` : `${product.name}ni sevimliga qo‘shish`}
           aria-pressed={isWishlisted}
         >
