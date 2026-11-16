@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { useCart } from "@/features/cart/CartContext";
+import { useAuth } from "@/features/auth/AuthContext";
 import { formatUZS } from "@/lib/format";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -32,22 +33,43 @@ const UZBEKISTAN_REGIONS = [
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, subtotal, clearCart } = useCart();
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isMobileSummaryOpen, setIsMobileSummaryOpen] = useState(false);
 
   // Form ma'lumotlari
-  const [formData, setFormData] = useState({
-    customer_name: "",
-    customer_phone: "+998",
-    customer_email: "",
+  const [formData, setFormData] = useState(() => ({
+    customer_name: user?.name || "",
+    customer_phone:
+      user?.emailOrPhone?.startsWith("+998") ? user.emailOrPhone : "+998",
+    customer_email: user?.emailOrPhone?.includes("@") ? user.emailOrPhone : "",
     region: "Toshkent shahri",
     city: "",
-    street: "",
+    street: user?.addresses?.[0]?.address || "",
     house: "",
     apartment: "",
     customer_note: "",
-  });
+  }));
+
+  // Sync if user updates
+  const [prevUser, setPrevUser] = useState(user);
+  if (user !== prevUser) {
+    setPrevUser(user);
+    if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        customer_name: prev.customer_name || user.name,
+        customer_phone:
+          prev.customer_phone === "+998" && user.emailOrPhone.startsWith("+998")
+            ? user.emailOrPhone
+            : prev.customer_phone,
+        customer_email:
+          prev.customer_email || (user.emailOrPhone.includes("@") ? user.emailOrPhone : ""),
+        street: prev.street || (user.addresses[0]?.address || ""),
+      }));
+    }
+  }
 
   const isTashkent = formData.region.toLowerCase().includes("toshkent");
   const shippingFee = subtotal >= 800000 ? 0 : isTashkent ? 30000 : 50000;
@@ -110,6 +132,21 @@ export default function CheckoutPage() {
       }
 
       const orderNumber = json.data.order_number;
+      try {
+        const savedOrdersRaw = localStorage.getItem("sarto_orders");
+        const savedOrders = savedOrdersRaw ? JSON.parse(savedOrdersRaw) : [];
+        savedOrders.unshift({
+          orderNumber,
+          itemsCount: items.reduce((acc, i) => acc + i.quantity, 0),
+          total: finalTotal,
+          status: "Qabul qilindi",
+          createdAt: new Date().toISOString(),
+          paymentMethod: "Naqd / Karta (Yetkazilganda)",
+        });
+        localStorage.setItem("sarto_orders", JSON.stringify(savedOrders));
+      } catch (e) {
+        console.error("Failed to save order to localStorage", e);
+      }
       clearCart();
       router.push(`/order/success/${orderNumber}`);
     } catch (err: unknown) {

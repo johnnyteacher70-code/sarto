@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useSyncExternalStore } from "react";
 import { Search, ShoppingBag, Heart, Menu, X, ArrowRight } from "lucide-react";
 import { useCart } from "@/features/cart/CartContext";
+import { useAuth } from "@/features/auth/AuthContext";
 
 const emptySubscribe = () => () => {};
 
@@ -17,6 +18,7 @@ export function Header() {
     () => false
   );
   const { totalItems, setIsCartOpen } = useCart();
+  const { user } = useAuth();
 
   const navigation = [
     { name: "Bosh sahifa", href: "/" },
@@ -114,13 +116,26 @@ export function Header() {
               )}
             </button>
 
-            {/* Kirish Pill Button */}
-            <Link
-              href="/login"
-              className="hidden sm:inline-flex items-center justify-center px-5 py-1.5 rounded-full border border-white/25 text-white/90 hover:text-black hover:bg-white text-xs sm:text-sm font-medium tracking-wide transition-all shadow-xs"
-            >
-              Kirish
-            </Link>
+            {/* Kirish Pill Button or Profile Avatar */}
+            {isMounted && user ? (
+              <Link
+                href="/account"
+                className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs sm:text-sm font-medium tracking-wide transition-all shadow-xs"
+                aria-label={`Mening hisobim: ${user.name}`}
+              >
+                <span className="w-5 h-5 rounded-full bg-white text-black text-[10px] font-bold flex items-center justify-center">
+                  {user.name.charAt(0).toUpperCase()}
+                </span>
+                <span className="max-w-[100px] truncate">{user.name.split(" ")[0]}</span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="hidden sm:inline-flex items-center justify-center px-5 py-1.5 rounded-full border border-white/25 text-white/90 hover:text-black hover:bg-white text-xs sm:text-sm font-medium tracking-wide transition-all shadow-xs"
+              >
+                Kirish
+              </Link>
+            )}
 
             {/* Mobile Menu Toggle Button */}
             <button
@@ -175,13 +190,34 @@ export function Header() {
             </nav>
 
             <div className="p-5 border-t border-white/10 space-y-3">
-              <Link
-                href="/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-white/90 transition-colors"
-              >
-                Kirish / Ro‘yxatdan o‘tish
-              </Link>
+              {isMounted && user ? (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2.5 px-2 py-1">
+                    <span className="w-8 h-8 rounded-full bg-white text-black text-xs font-bold flex items-center justify-center">
+                      {user.name.charAt(0).toUpperCase()}
+                    </span>
+                    <div className="overflow-hidden">
+                      <p className="text-sm font-bold text-white truncate">{user.name}</p>
+                      <p className="text-xs text-white/50 truncate">{user.emailOrPhone}</p>
+                    </div>
+                  </div>
+                  <Link
+                    href="/account"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-white/90 transition-colors"
+                  >
+                    Mening hisobim
+                  </Link>
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full inline-flex items-center justify-center py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-white/90 transition-colors"
+                >
+                  Kirish / Ro‘yxatdan o‘tish
+                </Link>
+              )}
             </div>
           </div>
         </div>
